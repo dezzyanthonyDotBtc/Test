@@ -272,7 +272,7 @@ import javax.swing.border.TitledBorder;
 	            		//Bild für die Erroranzeige wird erzeigt
 	   	            	ImageIcon icon = new ImageIcon("error.png");
 	   	            	//Display die Warnung
-		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 	            	}
 	            }
 	        }); 
@@ -297,8 +297,8 @@ import javax.swing.border.TitledBorder;
 		        		//Prüfen, ob die Automatik noch aktiv ist
 		            	if(activ == true) {
 		            		path.setText(pathActual);
-		            		ImageIcon icon = new ImageIcon("stop.png");
-			            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Stop", JOptionPane.INFORMATION_MESSAGE, icon);
+		            		ImageIcon icon = new ImageIcon("error.png");
+			            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV", "Stop", JOptionPane.INFORMATION_MESSAGE, icon);
 		            	} else {	            		
 		            		pathArchive.setEnabled(true);
 		   	            	pathArchive.setEditable(true);
@@ -429,7 +429,7 @@ import javax.swing.border.TitledBorder;
 	            		//Bild für die Erroranzeige wird erzeigt
 	   	            	ImageIcon icon = new ImageIcon("error.png");
 	   	            	//Display die Warnung
-		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 	            	}
    	            }
    	        }); 
@@ -454,8 +454,8 @@ import javax.swing.border.TitledBorder;
 	        		//Prüfen, ob die Automatik noch aktiv ist
 	            	if(activ == true) {
 	            		pathArchive.setText(pathActualArchiv);
-	            		ImageIcon icon = new ImageIcon("stop.png");
-		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+	            		ImageIcon icon = new ImageIcon("error.png");
+		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 	            	} else {
 	      
    	            	//Vergleich neuer INPUT mit altem INPUT
