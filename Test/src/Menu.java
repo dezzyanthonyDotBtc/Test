@@ -4,25 +4,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
-	import java.awt.BorderLayout;
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dialog;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.util.Properties;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.border.TitledBorder;
 	 
 	public class Menu extends JFrame {
 		
 		//Objekt erzeugen, um auf die setAutomatik Funktion zugreifen zu k�nnen
         Functions f = new Functions();
-		
+        
+        JTextArea display = new JTextArea ( 12, 40 );
+        
 	    // Menüleiste 
 	    JMenuBar menuBar;
 	 
@@ -84,7 +79,7 @@ import javax.swing.border.EmptyBorder;
 	    public Menu(String path1, String archivePath1) {
 	        this.setTitle("VW Converter - 2.1.0");
 	        //Größe des Frames hinterlegen
-	        this.setSize(550, 300);
+	        this.setSize(550, 420);
 	        //Menschliche Vergrößerung des Fensters vermeiden
 	        this.setResizable(false);
 	        //Die Applikation öffnet das Fenster in der Mitte des Monitors
@@ -157,12 +152,22 @@ import javax.swing.border.EmptyBorder;
 			//----------Buttons für die Automatik hinzufügen
 			automatik.add(startAutomatik);
 			automatik.add(stopAutomatik);
-		    
-			//Alle dem PANEL hinzugefügten Felder/ Buttons etc. dem JFrame hinzufügen, daher this., da die Klasse selber ein JFrame ist
 			
+			
+			//Hinzufügen einer Scrollabl Area für Infos zur Verarbeitung
+		    JPanel infoPanel = new JPanel ();
+		    infoPanel.setBorder (new TitledBorder (new EtchedBorder (), "Info Area" ) );
+		    display.setEditable (false); // set textArea non-editable
+		    JScrollPane scroll = new JScrollPane (display);
+		    scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
+		    //Add Textarea in to middle panel
+		    infoPanel.add (scroll);
+		    
+			//Alle dem PANEL hinzugefügten Felder/ Buttons etc. dem JFrame hinzufügen, daher this., da die Klasse selber ein JFrame ist			
 			mainPanel.add(panel);
 			mainPanel.add(panelArchive);
 			mainPanel.add(automatik);
+			mainPanel.add (infoPanel);
 			
 			//Main-Panel dem JFrame hinzufügen
 			this.add(mainPanel);
@@ -573,11 +578,14 @@ import javax.swing.border.EmptyBorder;
        		startAutomatik.addActionListener(new java.awt.event.ActionListener() {
    	            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
    	            public void actionPerformed(java.awt.event.ActionEvent e) {
+   	            	
+   	            if(f.getAutomatik()==false) {
    	         	//Setzen der Editierbarkeit auf false, wenn die Automaitk gestartet wird
    	            path.setEnabled(false);
             	path.setEditable(false);
    	            pathArchive.setEnabled(false);
             	pathArchive.setEditable(false);
+            	display.append("Automatik gestartet.... \n");
    	            //Setzen der Automatik von false auf true
    	            f.setAutomatik(true);
    	     		//Properties-Objekt erstellen
@@ -601,7 +609,7 @@ import javax.swing.border.EmptyBorder;
 	   	     		String pathActual = probPath.getProperty("path");	
 	   	     	    String archivePathActual = probPathArchive.getProperty("archivePath");	
 	   	     	    
-	   	     	    //Setzen der aktuallen Pfade, falls eine ungespeicherte �nderung in den Textfeldern hijnterlegt wurde
+	   	     	    //Setzen der aktuallen Pfade, falls eine ungespeicherte �nderung in den Textfeldern hijnterlegt wurde
 	   	     	    path.setText(pathActual);
 	   	     	    pathArchive.setText(archivePathActual);
 	   	     	    //�bergabe der Werte an die Automatik des Programms
@@ -609,28 +617,39 @@ import javax.swing.border.EmptyBorder;
 	   	     	    //METHODE
 	   	     	    //
 	   	     	    //
-	   	     	    //
-	   	     	    
+	   	     	
+	   	     	    ImageIcon icon = new ImageIcon("start.png");
+	   	     	    JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestartet", "Start", JOptionPane.INFORMATION_MESSAGE, icon);
+	         
 	   	     	    
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}	
-					ImageIcon icon = new ImageIcon("start.png");
-	            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestartet", "Start", JOptionPane.INFORMATION_MESSAGE, icon);
+				
+		       	
+   	            } else {
+   	            	display.append("Automatik bereits AKTIV... \n");
    	            }
+					   }
    	        }); 
        		
        		// ActionListener wird als anonyme Klasse eingebunden
        		stopAutomatik.addActionListener(new java.awt.event.ActionListener() {
    	            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
    	            public void actionPerformed(java.awt.event.ActionEvent e) {
+   	            	
+   	            	if(f.getAutomatik()==true){
+   	            		f.setAutomatik(false);
+   		            	display.append("Automatik gestoppt... \n");
+   	   	            	ImageIcon icon = new ImageIcon("stop.png");
+   		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestoppt", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 
+   	            	} else {
+   	            		display.append("Keine Automatik AKTIV... \n");
+   	            	}
    	            	//Hier wird die Automation auf false gesetzt, um Bearbeitungen vorhnehmen zu k�nnen
-	            	f.setAutomatik(false);
-   	            	ImageIcon icon = new ImageIcon("stop.png");
-	            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestoppt", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
-
+	            	
    	            }
    	        }); 
 	    }
