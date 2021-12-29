@@ -11,6 +11,11 @@ public class Functions {
 	private boolean activated;
 	
 	/**
+	 * Private String um Namen, der verarbeiteten Dateien abzuspeichern
+	 */
+	private String fileName;
+	
+	/**
 	 * Methode zum setzen der Automatik auf true oder false
 	 * @param active
 	 */
@@ -27,6 +32,26 @@ public class Functions {
 	public boolean getAutomatik() {
 		//Referenz auf private boolean im Kopf der Klasse
 		return this.activated;
+	}
+	
+	
+	/**
+	 * Methode zum setzen des FileNames
+	 * @param name
+	 */
+	public void setFileName(String name) {
+		//Referenz auf private String im Kopf der Klasse
+		this.fileName = name;
+	
+	}
+	
+	/**
+	 * Methode zum erhalten/abfragen des FileNames, ob diese true oder false hinterlegt ist
+	 * @param name
+	 */
+	public String getFileName() {
+		//Referenz auf private String im Kopf der Klasse
+		return this.fileName;
 	}
 
 }
