@@ -156,7 +156,7 @@ import javax.swing.border.TitledBorder;
 			
 			//Hinzufügen einer Scrollabl Area für Infos zur Verarbeitung
 		    JPanel infoPanel = new JPanel ();
-		  //Bild für die Infoanzeige
+		    //Bild für die Infoanzeige
            	ImageIcon icon = new ImageIcon("logo.png");
 		    JLabel backgroundInfoA = new JLabel(icon);
 		    backgroundInfoA.setVisible(true);
