@@ -51,7 +51,7 @@ import javax.swing.border.TitledBorder;
 	    //JButtonPfad speichern
 	    JButton safePath = new JButton("Speichern");
 	    
-	  //Button Pfad bearbeiten
+	    //Button Pfad bearbeiten
 	    JButton changePathArchive = new JButton("Bearbeiten");
 	    
 	    //JButtonPfad speichern
@@ -84,7 +84,7 @@ import javax.swing.border.TitledBorder;
 	        this.setResizable(false);
 	        //Die Applikation öffnet das Fenster in der Mitte des Monitors
 	        this.setLocationRelativeTo(null);
-	 
+	       
 	        // Menüleiste wird erzeugt
 	        menuBar = new JMenuBar();
 	 
@@ -156,11 +156,21 @@ import javax.swing.border.TitledBorder;
 			
 			//Hinzufügen einer Scrollabl Area für Infos zur Verarbeitung
 		    JPanel infoPanel = new JPanel ();
-		    infoPanel.setBorder (new TitledBorder (new EtchedBorder (), "Info Area" ) );
+		  //Bild für die Infoanzeige
+           	ImageIcon icon = new ImageIcon("logo.png");
+		    JLabel backgroundInfoA = new JLabel(icon);
+		    backgroundInfoA.setVisible(true);
+		    
+		    // Verschiebung nach (?,Hoch/Runter;Rechts, Hoch/Runter)
+		    backgroundInfoA.setBounds(10,40,490,100);
+		    infoPanel.setBorder (new TitledBorder (new EtchedBorder (), "Info Area") );
 		    display.setEditable (false); // set textArea non-editable
+		    display.add(backgroundInfoA);
 		    JScrollPane scroll = new JScrollPane (display);
+	
 		    scroll.setVerticalScrollBarPolicy ( ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS );
 		    //Add Textarea in to middle panel
+		   
 		    infoPanel.add (scroll);
 		    
 			//Alle dem PANEL hinzugefügten Felder/ Buttons etc. dem JFrame hinzufügen, daher this., da die Klasse selber ein JFrame ist			
