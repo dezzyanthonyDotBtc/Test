@@ -9,14 +9,19 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 	 
 	public class Menu extends JFrame {
+		
+		//Objekt erzeugen, um auf die setAutomatik Funktion zugreifen zu k�nnen
+           Functions f = new Functions();
 		
 	    // Menüleiste 
 	    JMenuBar menuBar;
@@ -112,8 +117,8 @@ import javax.swing.*;
 		    //Erzeugen eines TextFields - read-Path
 		    JTextField path = new JTextField("",15);
 		    path.setText(path1);
-			path.setForeground(Color.BLUE);
-			path.setBackground(Color.YELLOW);
+		    path.setForeground(Color.black.brighter());
+		    path.setBackground(Color.white);
 			//Textfield ausgrauen
 			path.setEnabled(false);
 			//Das Feld wird auf nicht editierbar gesetzt, da dies vom Button freigegeben werden soll
@@ -122,15 +127,15 @@ import javax.swing.*;
 			 //Erzeugen eines TextFields
 		    JTextField pathArchive = new JTextField("",15);
 		    pathArchive.setText(archivePath1);
-		    pathArchive.setForeground(Color.BLUE);
-		    pathArchive.setBackground(Color.YELLOW);
+		    pathArchive.setForeground(Color.black.brighter());
+		    pathArchive.setBackground(Color.white);
+		
 		    //Textfield ausgrauen
 		    pathArchive.setEnabled(false);
 			//Das Feld wird auf nicht editierbar gesetzt, da dies vom Button freigegeben werden soll
 		    pathArchive.setEditable(false);
 			
 		    //-----------Label, TextField & Buttons für den Pfad hinzufügen
-		    
 			 //Label dem Panel hinzufügen
 		    panel.add(label);		    
 			//TextField dem panel hinzufügen
@@ -252,10 +257,18 @@ import javax.swing.*;
 	            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
 	            public void actionPerformed(java.awt.event.ActionEvent e) {
 	            	//Das Textfeld wird bearbeitbar und die Ausgrauung wird entfernt
-	            	path.setEnabled(true);
-	            	path.setEditable(true);
 	            	
-
+	               	boolean activ = f.getAutomatik();
+   	            	System.out.println(activ);
+	            	if(activ== false) {
+	            	  	path.setEnabled(true);
+		            	path.setEditable(true);
+	            	} else {
+	            		//Bild für die Erroranzeige wird erzeigt
+	   	            	ImageIcon icon = new ImageIcon("error.png");
+	   	            	//Display die Warnung
+		            	JOptionPane.showMessageDialog(null, "Uppps - Automaitk noch AKTIV, bitte stoppen Sie diese zurerst", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+	            	}
 	            }
 	        }); 
 	        
@@ -263,9 +276,19 @@ import javax.swing.*;
 	        safePath.addActionListener(new java.awt.event.ActionListener() {
 	            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
 	            public void actionPerformed(java.awt.event.ActionEvent e) {
-	            	
+	            	//Properties-Objekt erstellen
+	        		Properties prob = new Properties();
+	            	//Auslesen eines Pfades aus der Config Datei
+	        		BufferedInputStream stream;
+					try {
+						stream = new BufferedInputStream(new FileInputStream("config.properties"));
+						prob.load(stream);
+						stream.close();
+		        		String pathActual = prob.getProperty("path");	
+						
+				
 	            	//Vergleich neuer INPUT mit altem INPUT
-	   	            if(path.getText().toString().equals(path1.toString())) {
+	   	            if(path.getText().toString().equals(pathActual)) {
 	   	                //Ausgrgauung wird aktiviert
 	   	            	path.setEnabled(false);
 		            	//Bild für die Erroranzeige wird erzeigt
@@ -301,7 +324,14 @@ import javax.swing.*;
 		            	path.setEnabled(false);
 	   	            	
 	   	            }
-	            }
+	   	            
+	   	 		
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} 
+        	
+	        		}
 	        }); 
 	        
 	    	
@@ -375,8 +405,20 @@ import javax.swing.*;
    	            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
    	            public void actionPerformed(java.awt.event.ActionEvent e) {
    	            	//Das Textfeld wird bearbeitbar und die Ausgrauung wird entfernt
-   	            	pathArchive.setEnabled(true);
-   	            	pathArchive.setEditable(true);
+   	            	boolean activ = f.getAutomatik();
+   	            	System.out.println(activ);
+	            	if(activ== false) {
+	            		pathArchive.setEnabled(true);
+	   	            	pathArchive.setEditable(true);
+	            	} else {
+	            		//Bild für die Erroranzeige wird erzeigt
+	   	            	ImageIcon icon = new ImageIcon("error.png");
+	   	            	//Display die Warnung
+		            	JOptionPane.showMessageDialog(null, "Uppps - Automaitk noch AKTIV, bitte stoppen Sie diese zurerst", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+	            	}
+   	            
+   	            	
+   	            	//Einbindungung einer Pr�fung, ob die Automatik l�uft, l�uft die Automatik = KEINE �nderung m�glich
 
    	            }
    	        }); 
@@ -385,10 +427,19 @@ import javax.swing.*;
    	        safePathArchive.addActionListener(new java.awt.event.ActionListener() {
    	            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
    	            public void actionPerformed(java.awt.event.ActionEvent e) {
-   	            	
+   	            	//Properties-Objekt erstellen
+	        		Properties prob = new Properties();
+	            	//Auslesen eines Pfades aus der Config Datei
+	        		BufferedInputStream stream;
+   	         	try {
+					stream = new BufferedInputStream(new FileInputStream("config.properties"));
+					prob.load(stream);
+					stream.close();
+	        		String pathActualArchiv = prob.getProperty("archivePath");	
+					
    	            	
    	            	//Vergleich neuer INPUT mit altem INPUT
-   	            if(pathArchive.getText().toString().equals(archivePath1.toString())) {
+   	            if(pathArchive.getText().toString().equals(pathActualArchiv)) {
    	            	//Ausgrgauung wird aktiviert
    	            	pathArchive.setEnabled(false);
    	            	//Bild für die Erroranzeige wird erzeigt
@@ -424,7 +475,10 @@ import javax.swing.*;
    	            	pathArchive.setEnabled(false);
  
    	            }
-   	            	
+   	         } catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
    	            	
    	            }
    	        }); 
@@ -501,11 +555,41 @@ import javax.swing.*;
        		startAutomatik.addActionListener(new java.awt.event.ActionListener() {
    	            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
    	            public void actionPerformed(java.awt.event.ActionEvent e) {
-   	            	
-   	            	//Starten des Programms 
-   	            	
-   	            	
-   	            	ImageIcon icon = new ImageIcon("start.png");
+   	            
+   	            //Setzen der Automatik von false auf true
+   	            f.setAutomatik(true);
+   	     		//Properties-Objekt erstellen
+   	     		Properties probPath = new Properties();
+   	     		Properties probPathArchive = new Properties();
+   	     		//Auslesen eines Pfades aus der Config Datei
+   	     		BufferedInputStream stream;
+   	     		//Auslesen eines Pfades aus der Config Datei
+   	     		BufferedInputStream streamArchive;
+				try {
+					stream = new BufferedInputStream(new FileInputStream("config.properties"));
+					streamArchive = new BufferedInputStream(new FileInputStream("config.properties"));
+					
+					probPath.load(stream);
+					probPathArchive.load(streamArchive);
+					
+	   	     		stream.close();
+	   	     		streamArchive.close();
+	   	     		
+	   	     		//Speicherung der aktuellen Werte f�r die Pfade (Read & Archiv)
+	   	     		String path = probPath.getProperty("path");	
+	   	     	    String archivePath = probPathArchive.getProperty("archivePath");	
+
+	   	     	    //�bergabe der Werte an die Automatik des Programms
+	   	     	    
+	   	     	    //METHODE
+	   	     	    
+	   	     	    
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+					ImageIcon icon = new ImageIcon("start.png");
 	            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestartet", "Start", JOptionPane.INFORMATION_MESSAGE, icon);
 
 
@@ -516,10 +600,9 @@ import javax.swing.*;
        		stopAutomatik.addActionListener(new java.awt.event.ActionListener() {
    	            // Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
    	            public void actionPerformed(java.awt.event.ActionEvent e) {
-   	            	
-   	            	//Stoppen des Programms
-   	            	
-   	            	
+
+   	            	//Hier wird die Automation auf false gesetzt, um Bearbeitungen vorhnehmen zu k�nnen
+	            	f.setAutomatik(false);
    	            	ImageIcon icon = new ImageIcon("stop.png");
 	            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestoppt", "Stop", JOptionPane.INFORMATION_MESSAGE, icon);
 
@@ -527,5 +610,5 @@ import javax.swing.*;
    	        }); 
 	    }
 	
-	
+
 }
