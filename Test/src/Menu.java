@@ -20,8 +20,8 @@ import javax.swing.border.EmptyBorder;
 	 
 	public class Menu extends JFrame {
 		
-		//Objekt erzeugen, um auf die setAutomatik Funktion zugreifen zu können
-           Functions f = new Functions();
+		//Objekt erzeugen, um auf die setAutomatik Funktion zugreifen zu kï¿½nnen
+        Functions f = new Functions();
 		
 	    // MenÃ¼leiste 
 	    JMenuBar menuBar;
@@ -267,7 +267,7 @@ import javax.swing.border.EmptyBorder;
 	            		//Bild fÃ¼r die Erroranzeige wird erzeigt
 	   	            	ImageIcon icon = new ImageIcon("error.png");
 	   	            	//Display die Warnung
-		            	JOptionPane.showMessageDialog(null, "Uppps - Automaitk noch AKTIV, bitte stoppen Sie diese zurerst", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 	            	}
 	            }
 	        }); 
@@ -285,8 +285,18 @@ import javax.swing.border.EmptyBorder;
 						prob.load(stream);
 						stream.close();
 		        		String pathActual = prob.getProperty("path");	
-						
-				
+					
+		        		//Auslesen der Aktivierung der Automatik
+		        		boolean activ = f.getAutomatik();
+	   	            
+		        		//PrÃ¼fen, ob die Automatik noch aktiv ist
+		            	if(activ == true) {
+		            		path.setText(pathActual);
+		            		ImageIcon icon = new ImageIcon("stop.png");
+			            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Stop", JOptionPane.INFORMATION_MESSAGE, icon);
+		            	} else {	            		
+		            		pathArchive.setEnabled(true);
+		   	            	pathArchive.setEditable(true);
 	            	//Vergleich neuer INPUT mit altem INPUT
 	   	            if(path.getText().toString().equals(pathActual)) {
 	   	                //Ausgrgauung wird aktiviert
@@ -325,7 +335,7 @@ import javax.swing.border.EmptyBorder;
 	   	            	
 	   	            }
 	   	            
-	   	 		
+		            	}
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -414,12 +424,8 @@ import javax.swing.border.EmptyBorder;
 	            		//Bild fÃ¼r die Erroranzeige wird erzeigt
 	   	            	ImageIcon icon = new ImageIcon("error.png");
 	   	            	//Display die Warnung
-		            	JOptionPane.showMessageDialog(null, "Uppps - Automaitk noch AKTIV, bitte stoppen Sie diese zurerst", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIVs", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 	            	}
-   	            
-   	            	
-   	            	//Einbindungung einer Prüfung, ob die Automatik läuft, läuft die Automatik = KEINE Änderung möglich
-
    	            }
    	        }); 
    	        
@@ -436,8 +442,17 @@ import javax.swing.border.EmptyBorder;
 					prob.load(stream);
 					stream.close();
 	        		String pathActualArchiv = prob.getProperty("archivePath");	
-					
-   	            	
+
+	        		//Auslesen der Aktivierung der Automatik
+	        		boolean activ = f.getAutomatik();
+   	            
+	        		//PrÃ¼fen, ob die Automatik noch aktiv ist
+	            	if(activ == true) {
+	            		pathArchive.setText(pathActualArchiv);
+	            		ImageIcon icon = new ImageIcon("stop.png");
+		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Stop", JOptionPane.INFORMATION_MESSAGE, icon);
+	            	} else {
+	      
    	            	//Vergleich neuer INPUT mit altem INPUT
    	            if(pathArchive.getText().toString().equals(pathActualArchiv)) {
    	            	//Ausgrgauung wird aktiviert
@@ -475,12 +490,15 @@ import javax.swing.border.EmptyBorder;
    	            	pathArchive.setEnabled(false);
  
    	            }
+   	            
+	            	}
    	         } catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} 
-   	            	
+   	         	
    	            }
+   	            
    	        }); 
    	        
    	    	
@@ -555,7 +573,11 @@ import javax.swing.border.EmptyBorder;
        		startAutomatik.addActionListener(new java.awt.event.ActionListener() {
    	            // Beim DrÃ¼cken des MenÃ¼punktes wird actionPerformed aufgerufen
    	            public void actionPerformed(java.awt.event.ActionEvent e) {
-   	            
+   	         	//Setzen der Editierbarkeit auf false, wenn die Automaitk gestartet wird
+   	            path.setEnabled(false);
+            	path.setEditable(false);
+   	            pathArchive.setEnabled(false);
+            	pathArchive.setEditable(false);
    	            //Setzen der Automatik von false auf true
    	            f.setAutomatik(true);
    	     		//Properties-Objekt erstellen
@@ -575,11 +597,11 @@ import javax.swing.border.EmptyBorder;
 	   	     		stream.close();
 	   	     		streamArchive.close();
 	   	     		
-	   	     		//Speicherung der aktuellen Werte für die Pfade (Read & Archiv)
+	   	     		//Speicherung der aktuellen Werte fï¿½r die Pfade (Read & Archiv)
 	   	     		String path = probPath.getProperty("path");	
 	   	     	    String archivePath = probPathArchive.getProperty("archivePath");	
 
-	   	     	    //Übergabe der Werte an die Automatik des Programms
+	   	     	    //ï¿½bergabe der Werte an die Automatik des Programms
 	   	     	    
 	   	     	    //METHODE
 	   	     	    
@@ -601,7 +623,7 @@ import javax.swing.border.EmptyBorder;
    	            // Beim DrÃ¼cken des MenÃ¼punktes wird actionPerformed aufgerufen
    	            public void actionPerformed(java.awt.event.ActionEvent e) {
 
-   	            	//Hier wird die Automation auf false gesetzt, um Bearbeitungen vorhnehmen zu können
+   	            	//Hier wird die Automation auf false gesetzt, um Bearbeitungen vorhnehmen zu kï¿½nnen
 	            	f.setAutomatik(false);
    	            	ImageIcon icon = new ImageIcon("stop.png");
 	            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestoppt", "Stop", JOptionPane.INFORMATION_MESSAGE, icon);
