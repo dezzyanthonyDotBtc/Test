@@ -424,7 +424,7 @@ import javax.swing.border.EmptyBorder;
 	            		//Bild für die Erroranzeige wird erzeigt
 	   	            	ImageIcon icon = new ImageIcon("error.png");
 	   	            	//Display die Warnung
-		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIVs", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 	            	}
    	            }
    	        }); 
@@ -450,7 +450,7 @@ import javax.swing.border.EmptyBorder;
 	            	if(activ == true) {
 	            		pathArchive.setText(pathActualArchiv);
 	            		ImageIcon icon = new ImageIcon("stop.png");
-		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Stop", JOptionPane.INFORMATION_MESSAGE, icon);
+		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung noch AKTIV", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 	            	} else {
 	      
    	            	//Vergleich neuer INPUT mit altem INPUT
@@ -536,7 +536,7 @@ import javax.swing.border.EmptyBorder;
    	            	dialogArchiv.dispose();
    	            	
    	            	ImageIcon icon = new ImageIcon("check.png");
-	            	JOptionPane.showMessageDialog(null, "Änderung erfolgreich", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+	            	JOptionPane.showMessageDialog(null, "Aennderung erfolgreich", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 
 	            	
 	            	
@@ -598,23 +598,26 @@ import javax.swing.border.EmptyBorder;
 	   	     		streamArchive.close();
 	   	     		
 	   	     		//Speicherung der aktuellen Werte f�r die Pfade (Read & Archiv)
-	   	     		String path = probPath.getProperty("path");	
-	   	     	    String archivePath = probPathArchive.getProperty("archivePath");	
-
+	   	     		String pathActual = probPath.getProperty("path");	
+	   	     	    String archivePathActual = probPathArchive.getProperty("archivePath");	
+	   	     	    
+	   	     	    //Setzen der aktuallen Pfade, falls eine ungespeicherte �nderung in den Textfeldern hijnterlegt wurde
+	   	     	    path.setText(pathActual);
+	   	     	    pathArchive.setText(archivePathActual);
 	   	     	    //�bergabe der Werte an die Automatik des Programms
 	   	     	    
 	   	     	    //METHODE
+	   	     	    //
+	   	     	    //
+	   	     	    //
 	   	     	    
 	   	     	    
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
-				}
-				
+				}	
 					ImageIcon icon = new ImageIcon("start.png");
 	            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestartet", "Start", JOptionPane.INFORMATION_MESSAGE, icon);
-
-
    	            }
    	        }); 
        		
@@ -626,11 +629,10 @@ import javax.swing.border.EmptyBorder;
    	            	//Hier wird die Automation auf false gesetzt, um Bearbeitungen vorhnehmen zu k�nnen
 	            	f.setAutomatik(false);
    	            	ImageIcon icon = new ImageIcon("stop.png");
-	            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestoppt", "Stop", JOptionPane.INFORMATION_MESSAGE, icon);
+	            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestoppt", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 
    	            }
    	        }); 
 	    }
-	
 
 }
