@@ -1,4 +1,5 @@
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -188,8 +189,8 @@ import javax.swing.border.TitledBorder;
 		   // this.add(panelArchive);
 		    
 	        // Menüpunkte werden erzeugt
-	        openItem = new JMenuItem("Öffnen");
-	        closeItem = new JMenuItem("Schließen");
+	        openItem = new JMenuItem("Manuelle-Verarbeitung");
+	        closeItem = new JMenuItem("Schliessen");
 	        support = new JMenuItem("Support");
 	        version = new JMenuItem("Version");
 	 
@@ -221,7 +222,28 @@ import javax.swing.border.TitledBorder;
 	                // Dateiauswahldialog wird erzeugt...
 	                JFileChooser fc = new JFileChooser();
 	                // ... und angezeigt
-	                fc.showOpenDialog(null);
+	                fc.showOpenDialog(null);               
+	                //Speichert das ausgew�hlte File in Variable File
+	                File file = fc.getSelectedFile();
+	                
+	                //Manuelle Verarbeitung einzelner Dateien
+	                if(file != null) {
+	                    
+		                try {
+		                	//setzen der Pfade in die functions Methoden
+		                	f.setPath(path.getText());
+		                	f.setPathArchive(pathArchive.getText());
+		                	
+							FileImpExp.readFile(file,f, display);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+	                } else {
+	                	display.append("\n"+"Auswahl abgebrochen..........\n");
+	                }
+	                
+	            
 	            }
 	        });
 	 
