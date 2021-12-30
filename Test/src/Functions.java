@@ -1,3 +1,6 @@
+import java.nio.file.InvalidPathException;
+import java.nio.file.Paths;
+
 /**
  * Diese Klasse erweitert das Programm um ein paar Funktionen
  * 
@@ -25,6 +28,11 @@ public class Functions {
 	 * Private String um den Archiv Pfad zu speichern
 	 */
 	private static String pathArchive;
+	
+	/**
+	 * Private boolean um validität eines Links zu hinterlegen
+	 */
+	boolean isValid = false;
 
 	/**
 	 * Methode zum setzen der Automatik auf true oder false
@@ -108,5 +116,24 @@ public class Functions {
 		// Referenz auf private String im Kopf der Klasse
 		return this.pathArchive;
 	}
+	
+	/**
+	 * Methode zum setzen eines Validen Pfades
+	 * 
+	 * @param name
+	 */
+	public void setValidity(boolean valid) {
+		// Referenz auf private String im Kopf der Klasse
+		this.isValid = valid;
 
+	}
+
+	/**
+	 * Methode zum erhalten/abfragen der Validität eins Pfades
+	 */
+	public boolean getValidity() {
+		// Referenz auf private String im Kopf der Klasse
+		return this.isValid;
+	}
+	
 }
