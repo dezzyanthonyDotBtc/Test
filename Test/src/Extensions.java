@@ -31,9 +31,10 @@ public class Extensions {
 		// der Datei vorkommt keine aktion vorgenommen werden (Einfach Speichern)
 
 		// Methode counter() wird aufgerufen
-		// Übergabe des Textes, Was gesucht wird, wie lang der gesuchte String ist (0 = 1; 1 = 2; 2; = 3 etc.)
+		// Übergabe des Textes, Was gesucht wird, wie lang der gesuchte String ist (0 =
+		// 1; 1 = 2; 2; = 3 etc.)
 		if (counter(s, "RFF+AAU", 6) == 2) {
-			System.out.println("Ich habe "+ counter(s, "RFF+AAU", 6) + " einen Lieferschein hinterlegt" );
+			System.out.println("Ich habe " + counter(s, "RFF+AAU", 6) + " einen Lieferschein hinterlegt");
 
 			// Ermittlung der Inizes der Lieferscheinnummern
 			int posRFF1 = s.indexOf("RFF+AAU", 0);
@@ -101,7 +102,7 @@ public class Extensions {
 				newText.setCharAt(posRFF1 + 15, lieferschein1NEWString.charAt(7));
 
 				// Übergabe der bearbeiteten Datei für die Speicherung
-				FileImpExp.safeNewFile(newText.toString(), f,display);
+				FileImpExp.safeNewFile(newText.toString(), f, display);
 
 			} else {
 				// Wenn unterschiedlich, soll die Datei einfach wie zuvor auch gespreichert
@@ -112,8 +113,8 @@ public class Extensions {
 
 			}
 
-		//Wenn der Counter nicht 2 ergibt, wird der Lieferschein nicht abgeändert
-		//Anpassung von mehreren Lieferscheinen hier später noch einbauen
+			// Wenn der Counter nicht 2 ergibt, wird der Lieferschein nicht abgeändert
+			// Anpassung von mehreren Lieferscheinen hier später noch einbauen
 		} else {
 			// Wenn unterschiedlich, soll die Datei einfach wie zuvor auch gespreichert
 			// werden
@@ -152,7 +153,7 @@ public class Extensions {
 				}
 
 			}
-		// CharSequence = 2
+			// CharSequence = 2
 		case 1:
 
 			// Die for Schleife zählt, wie oft das gewünschte Wort im String vorkommt
@@ -163,7 +164,7 @@ public class Extensions {
 				}
 
 			}
-		// CharSequence = 3
+			// CharSequence = 3
 		case 2:
 
 			// Die for Schleife zählt, wie oft das gewünschte Wort im String vorkommt
@@ -175,7 +176,7 @@ public class Extensions {
 				}
 
 			}
-		// CharSequence = 4
+			// CharSequence = 4
 		case 3:
 
 			// Die for Schleife zählt, wie oft das gewünschte Wort im String vorkommt
@@ -187,7 +188,7 @@ public class Extensions {
 				}
 
 			}
-		// CharSequence = 5
+			// CharSequence = 5
 		case 4:
 
 			// Die for Schleife zählt, wie oft das gewünschte Wort im String vorkommt
@@ -200,7 +201,7 @@ public class Extensions {
 				}
 
 			}
-		// CharSequence = 6
+			// CharSequence = 6
 		case 5:
 
 			// Die for Schleife zählt, wie oft das gewünschte Wort im String vorkommt
@@ -213,7 +214,7 @@ public class Extensions {
 				}
 
 			}
-		// CharSequence = 7
+			// CharSequence = 7
 		case 6:
 
 			// Die for Schleife zählt, wie oft das gewünschte Wort im String vorkommt

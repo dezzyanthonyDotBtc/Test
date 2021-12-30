@@ -32,19 +32,20 @@ public class FileImpExp {
 
 	static String pathA;
 	static String pathArch;
+
 	/**
 	 * Diese Methode liest die zu konvertierenden Lieferabrufe ein und speichert
 	 * diese in ein Vector ab.
 	 * 
 	 * @throws Exception
 	 */
-	public static void readFile(File files, Functions func,  JTextArea display) throws Exception {
+	public static void readFile(File files, Functions func, JTextArea display) throws Exception {
 		pathA = func.getPath();
 		pathArch = func.getPathArchive();
-	
-		
-		display.append(files.getName() + "...Datei gefunden....Verarbeitung...... \n");
-		
+
+		// Info an die Info Area andrucken
+		display.append("\n" + files.getName() + "...Verarbeitung...... \n");
+
 		StringBuilder sb = new StringBuilder();
 		// Hier wird die Datei eingelesen.
 		BufferedReader br = new BufferedReader(new FileReader(files));
@@ -55,10 +56,10 @@ public class FileImpExp {
 		// Abfrage = solange der Inhalt der Textdatei keinen Wert mehr enthält wird
 		// ausgelesen.
 		while ((st = br.readLine()) != null) {
-			
-				sb.append(st);
-				sb.append("\n");
-			
+
+			sb.append(st);
+			sb.append("\n");
+
 		}
 		br.close();
 		br = null;
@@ -72,30 +73,30 @@ public class FileImpExp {
 	 * der EDI Schnittstelle mit neuer Debitornummer.
 	 */
 	public static void safeNewFile(String newFile, File file, JTextArea display) throws Exception {
-			
-			BufferedWriter writer = new BufferedWriter(new FileWriter(pathA+ file.getName()));
-			display.append(file.getName()+"....abgeschossen.....");
-			System.out.println(pathA + " Bin in der Speicherung ");
 
-			// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
-			writer.write(newFile);
-			writer.close();
-			writer = null;
+		BufferedWriter writer = new BufferedWriter(new FileWriter(pathA + file.getName()));
+		display.append("\n" + file.getName() + "...abgeschossen..... \n");
+		// System.out.println(pathA + " Bin in der Speicherung ");
 
-			// Bearbeitetes File wird nun entfernt.
-			safeNewFileIntoArchiv(newFile, file);
-			//deleteFile(file);
-	
+		// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
+		writer.write(newFile);
+		writer.close();
+		writer = null;
+
+		// Bearbeitetes File wird nun entfernt.
+		safeNewFileIntoArchiv(newFile, file);
+		// deleteFile(file);
+
 	}
-	
+
 	/**
 	 * Diese Methode speichert eine veränderte EDI Datei im hinterlegten Verzeichnis
 	 * der EDI Schnittstelle mit neuer Debitornummer.
 	 */
 	public static void safeNewFileIntoArchiv(String newFile, File file) throws Exception {
-		
-		BufferedWriter writer = new BufferedWriter(new FileWriter(pathArch+ file.getName()));
-		System.out.println(pathArch + " Bin im ARCHIV ");
+
+		BufferedWriter writer = new BufferedWriter(new FileWriter(pathArch + file.getName()));
+		// System.out.println(pathArch + " Bin im ARCHIV ");
 
 		// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
 		writer.write(newFile);
@@ -113,9 +114,8 @@ public class FileImpExp {
 	 * @param path EDI Datei
 	 */
 	public static void deleteFile(File path) {
-		
+
 		path.delete();
-	
 
 		if (path.exists()) {
 			File[] files = path.listFiles();
@@ -129,6 +129,5 @@ public class FileImpExp {
 
 		}
 	}
-	
-	
+
 }
