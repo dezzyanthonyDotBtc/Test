@@ -97,7 +97,7 @@ public class Menu extends JFrame {
 		this.setTitle("VW Converter - 2.1.0");
 
 		// Größe des Frames hinterlegen
-		this.setSize(550, 420);
+		this.setSize(550, 460);
 
 		// Menschliche Vergrößerung des Fensters vermeiden
 		this.setResizable(false);
@@ -130,8 +130,8 @@ public class Menu extends JFrame {
 		JLabel label = new JLabel("READ:");
 
 		// Erzeugen eines Labels
-		ImageIcon icon = new ImageIcon("logo.png");
-		JLabel labellogo = new JLabel(icon);
+		ImageIcon icon4 = new ImageIcon("logo3.png");
+		JLabel labellogo = new JLabel(icon4);
 
 		// Erzeugen eines Labels
 		JLabel labelArchive = new JLabel("ARCHIV:");
@@ -186,14 +186,14 @@ public class Menu extends JFrame {
 		// Hinzufügen einer Scrollabl Area für Infos zur Verarbeitung
 		JPanel infoPanel = new JPanel();
 		// Bild für die Infoanzeige
-		JLabel backgroundInfoA = new JLabel(icon);
-		backgroundInfoA.setVisible(true);
+		//JLabel backgroundInfoA = new JLabel(icon);
+	//	backgroundInfoA.setVisible(true);
 
 		// Verschiebung nach (?,Hoch/Runter;Rechts, Hoch/Runter)
-		backgroundInfoA.setBounds(10, 30, 700, 100);
+	//	backgroundInfoA.setBounds(10, 30, 700, 100);
 		infoPanel.setBorder(new TitledBorder(new EtchedBorder(), "Info Area"));
 		display.setEditable(false); // set textArea non-editable
-		display.add(backgroundInfoA);
+	//	display.add(backgroundInfoA);
 		JScrollPane scroll = new JScrollPane(display);
 
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
