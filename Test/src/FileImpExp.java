@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import static java.nio.file.StandardCopyOption.*;
+
+import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
@@ -12,6 +14,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -29,7 +33,7 @@ import java.util.TimerTask;
  *
  */
 public class FileImpExp {
-
+	
 	static String pathA;
 	static String pathArch;
 
@@ -40,11 +44,14 @@ public class FileImpExp {
 	 * @throws Exception
 	 */
 	public static void readFile(File files, Functions func, JTextArea display) throws Exception {
+		
+		DateTimeFormatter dtf3 = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+
 		pathA = func.getPath();
 		pathArch = func.getPathArchive();
 
 		// Info an die Info Area andrucken
-		display.append("\n" + files.getName() + "...Verarbeitung...... \n");
+		display.append("\n"+ dtf3.format(LocalDateTime.now()) +" - "+ files.getName() + "...Verarbeitung...... \n");
 
 		StringBuilder sb = new StringBuilder();
 		// Hier wird die Datei eingelesen.
@@ -74,10 +81,10 @@ public class FileImpExp {
 	 */
 	public static void safeNewFile(String newFile, File file, JTextArea display) throws Exception {
 
+		DateTimeFormatter dtf3 = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(pathA + file.getName()));
-		display.append("\n" + file.getName() + "...abgeschossen..... \n");
-		// System.out.println(pathA + " Bin in der Speicherung ");
-
+		display.append("\n" + dtf3.format(LocalDateTime.now()) +" - "+ file.getName() + "...abgeschossen..... \n");
 		// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
 		writer.write(newFile);
 		writer.close();
@@ -96,8 +103,7 @@ public class FileImpExp {
 	public static void safeNewFileIntoArchiv(String newFile, File file) throws Exception {
 
 		BufferedWriter writer = new BufferedWriter(new FileWriter(pathArch + file.getName()));
-		// System.out.println(pathArch + " Bin im ARCHIV ");
-
+		
 		// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
 		writer.write(newFile);
 		writer.close();

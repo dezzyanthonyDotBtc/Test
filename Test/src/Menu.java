@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Timer;
 import java.awt.BorderLayout;
@@ -90,6 +92,7 @@ public class Menu extends JFrame {
 	 */
 	public Menu(String path1, String archivePath1) {
 
+		//java.net.URL url = ClassLoader.getSystemResource("logo.png");
 		// Titel der Applikation setzen
 		this.setTitle("VW Converter - 2.1.0");
 
@@ -101,7 +104,7 @@ public class Menu extends JFrame {
 
 		// Die Applikation öffnet das Fenster in der Mitte des Monitors
 		this.setLocationRelativeTo(null);
-
+	
 		// Menüleiste wird erzeugt
 		menuBar = new JMenuBar();
 
@@ -125,6 +128,10 @@ public class Menu extends JFrame {
 
 		// Erzeugen eines Labels
 		JLabel label = new JLabel("READ:");
+
+		// Erzeugen eines Labels
+		ImageIcon icon = new ImageIcon("logo.png");
+		JLabel labellogo = new JLabel(icon);
 
 		// Erzeugen eines Labels
 		JLabel labelArchive = new JLabel("ARCHIV:");
@@ -173,11 +180,12 @@ public class Menu extends JFrame {
 		// ----------Buttons für die Automatik hinzufügen
 		automatik.add(startAutomatik);
 		automatik.add(stopAutomatik);
+		//Logo hinzuf�gen
+		automatik.add(labellogo);
 
 		// Hinzufügen einer Scrollabl Area für Infos zur Verarbeitung
 		JPanel infoPanel = new JPanel();
 		// Bild für die Infoanzeige
-		ImageIcon icon = new ImageIcon("logo.png");
 		JLabel backgroundInfoA = new JLabel(icon);
 		backgroundInfoA.setVisible(true);
 
@@ -190,7 +198,6 @@ public class Menu extends JFrame {
 
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		// Add Textarea in to middle panel
-
 		infoPanel.add(scroll);
 
 		// Alle dem PANEL hinzugefügten Felder/ Buttons etc. dem JFrame hinzufügen,
@@ -202,8 +209,6 @@ public class Menu extends JFrame {
 
 		// Main-Panel dem JFrame hinzufügen
 		this.add(mainPanel);
-
-		// this.add(panelArchive);
 
 		// Menüpunkte werden erzeugt
 		openItem = new JMenuItem("Manuell verarbeiten");
@@ -321,7 +326,7 @@ public class Menu extends JFrame {
 					// Bild für die Erroranzeige wird erzeigt
 					ImageIcon icon = new ImageIcon("error.png");
 					// Display die Warnung
-					JOptionPane.showMessageDialog(null, "\n Automatische Verarbeitung AKTIV \n", "Meldung",
+					JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV \n", "Meldung",
 							JOptionPane.INFORMATION_MESSAGE, icon);
 				}
 			}
@@ -348,7 +353,7 @@ public class Menu extends JFrame {
 					if (activ == true) {
 						path.setText(pathActual);
 						ImageIcon icon = new ImageIcon("error.png");
-						JOptionPane.showMessageDialog(null, "\n Automatische Verarbeitung AKTIV \n", "Stop",
+						JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV \n", "Stop",
 								JOptionPane.INFORMATION_MESSAGE, icon);
 					} else {
 						// Vergleich neuer INPUT mit altem INPUT
@@ -472,7 +477,7 @@ public class Menu extends JFrame {
 					// Bild für die Erroranzeige wird erzeigt
 					ImageIcon icon = new ImageIcon("error.png");
 					// Display die Warnung
-					JOptionPane.showMessageDialog(null, "\n Automatische Verarbeitung AKTIV \n", "Meldung",
+					JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV \n", "Meldung",
 							JOptionPane.INFORMATION_MESSAGE, icon);
 				}
 			}
@@ -499,7 +504,7 @@ public class Menu extends JFrame {
 					if (activ == true) {
 						pathArchive.setText(pathActualArchiv);
 						ImageIcon icon = new ImageIcon("error.png");
-						JOptionPane.showMessageDialog(null, "\n Automatische Verarbeitung AKTIV \n", "Meldung",
+						JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV \n", "Meldung",
 								JOptionPane.INFORMATION_MESSAGE, icon);
 					} else {
 
@@ -510,7 +515,7 @@ public class Menu extends JFrame {
 							// Bild für die Erroranzeige wird erzeigt
 							ImageIcon icon = new ImageIcon("error.png");
 							// Display die Warnung
-							JOptionPane.showMessageDialog(null, "Uppps - Keine Änderung erkannt", "Meldung",
+							JOptionPane.showMessageDialog(null, "Uppps - Keine Aenderung erkannt", "Meldung",
 									JOptionPane.INFORMATION_MESSAGE, icon);
 
 						} else {
@@ -573,10 +578,10 @@ public class Menu extends JFrame {
 					out.close();
 
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
+					display.append("\n"+ e1 +"\n");
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					display.append("\n"+ e1 +"\n");
 					e1.printStackTrace();
 				}
 
@@ -617,14 +622,16 @@ public class Menu extends JFrame {
 		startAutomatik.addActionListener(new java.awt.event.ActionListener() {
 			// Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-
+				//Um das aktuelle Datum abzufragen 
+				DateTimeFormatter dtf3 = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+				
 				if (f.getAutomatik() == false) {
 					// Setzen der Editierbarkeit auf false, wenn die Automaitk gestartet wird
 					path.setEnabled(false);
 					path.setEditable(false);
 					pathArchive.setEnabled(false);
 					pathArchive.setEditable(false);
-					display.append("\n Automatik gestartet.... \n");
+					display.append("\n" + dtf3.format(LocalDateTime.now()) +" - "+ "Automatik gestartet.... \n");
 					// Setzen der Automatik von false auf true
 					f.setAutomatik(true);
 					// Properties-Objekt erstellen
@@ -661,7 +668,7 @@ public class Menu extends JFrame {
 						TimerDataCheck.timerTask(f, t, display);
 
 						ImageIcon icon = new ImageIcon("start.png");
-						JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestartet", "Start",
+						JOptionPane.showMessageDialog(null,"Automatische Verarbeitung gestartet", "Start",
 								JOptionPane.INFORMATION_MESSAGE, icon);
 
 					} catch (IOException e1) {
@@ -670,7 +677,7 @@ public class Menu extends JFrame {
 					}
 
 				} else {
-					display.append("\n Automatik bereits AKTIV... \n");
+					display.append("\n"+ dtf3.format(LocalDateTime.now()) +" - "+   "Automatik bereits AKTIV... \n");
 				}
 			}
 		});
@@ -679,7 +686,9 @@ public class Menu extends JFrame {
 		stopAutomatik.addActionListener(new java.awt.event.ActionListener() {
 			// Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-
+				//Um das aktuelle Datum abzufragen 
+				DateTimeFormatter dtf3 = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+				
 				if (f.getAutomatik() == true) {
 					f.setAutomatik(false);
 					// Verarbeitung anhalten
@@ -688,17 +697,14 @@ public class Menu extends JFrame {
 					// nicht mehr verwendet werdnen darf
 					t = new Timer();
 					// Anzeige, Verarbeitung beendet
-					display.append("\n" + "Automatik gestoppt... \n");
+					display.append("\n" +dtf3.format(LocalDateTime.now()) +" - "+  "Automatik gestoppt... \n");
 					ImageIcon icon = new ImageIcon("stop.png");
 					JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestoppt", "Meldung",
 							JOptionPane.INFORMATION_MESSAGE, icon);
 
 				} else {
-					display.append("\n Keine Automatik AKTIV... \n");
+					display.append("\n"+ dtf3.format(LocalDateTime.now()) +" - "+  "Keine Automatik AKTIV..."+"\n");
 				}
-				// Hier wird die Automation auf false gesetzt, um Bearbeitungen vorhnehmen zu
-				// k�nnen
-
 			}
 		});
 	}
