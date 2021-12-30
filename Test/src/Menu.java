@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
@@ -514,40 +517,40 @@ public class Menu extends JFrame {
 									JOptionPane.INFORMATION_MESSAGE, icon);
 
 						} else {
-							// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
-							JPanel panel = new JPanel();
-							// Hinzufügen der Button zum Panel
-							panel.add(yesButtonArchive);
-							panel.add(noButtonArchive);
-							// Sichtbarkeit des Panels setzen
-							panel.setVisible(true);
-							// Panel dem Dialog Fenster hinzufügen
-							dialogArchiv.add(panel);
-							// Setzen des Titels, muss hier geschehen, da nicht über den Konstruktor
-							// möglich
-							dialogArchiv.setTitle("Wollen Sie den Archiv-Pfad wirklich ändern?");
-							// Setzen der DialogFenster größe
-							dialogArchiv.setSize(400, 100);
-							// Fenster öffnet sich in der Mitte des Monitors
-							dialogArchiv.setLocationRelativeTo(null);
-							// Deaktivierung der menschlichen Fensteranpassung
-							dialogArchiv.setResizable(false);
-							// Setzen des Objektes/Fensters auf Modual (Modal = keine Schließung oder
-							// Änderunga anderer Fenster möglich
-							dialogArchiv.setModal(true);
-							// Sichtbarkeit des Fensters setzen
-							dialogArchiv.setVisible(true);
-							// Nach der Speicherung, soll das Feld erneut auf NICHT bearbeitbar gesetzt
-							// werden
-							pathArchive.setEditable(false);
-							// Nach der Speicherung wird auch das Feld erneut ausgegaurt
-							pathArchive.setEnabled(false);
+
+								// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
+								JPanel panel = new JPanel();
+								// Hinzufügen der Button zum Panel
+								panel.add(yesButtonArchive);
+								panel.add(noButtonArchive);
+								// Sichtbarkeit des Panels setzen
+								panel.setVisible(true);
+								// Panel dem Dialog Fenster hinzufügen
+								dialogArchiv.add(panel);
+								// Setzen des Titels, muss hier geschehen, da nicht über den Konstruktor
+								// möglich
+								dialogArchiv.setTitle("Wollen Sie den Archiv-Pfad wirklich ändern?");
+								// Setzen der DialogFenster größe
+								dialogArchiv.setSize(400, 100);
+								// Fenster öffnet sich in der Mitte des Monitors
+								dialogArchiv.setLocationRelativeTo(null);
+								// Deaktivierung der menschlichen Fensteranpassung
+								dialogArchiv.setResizable(false);
+								// Setzen des Objektes/Fensters auf Modual (Modal = keine Schließung oder
+								// Änderunga anderer Fenster möglich
+								dialogArchiv.setModal(true);
+								// Sichtbarkeit des Fensters setzen
+								dialogArchiv.setVisible(true);
+								// Nach der Speicherung, soll das Feld erneut auf NICHT bearbeitbar gesetzt
+								// werden
+								pathArchive.setEditable(false);
+								// Nach der Speicherung wird auch das Feld erneut ausgegaurt
+								pathArchive.setEnabled(false);
 
 						}
-
 					}
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					display.append("\n" + e1 + "\n");
 					e1.printStackTrace();
 				}
 
@@ -588,8 +591,8 @@ public class Menu extends JFrame {
 				dialogArchiv.dispose();
 
 				ImageIcon icon = new ImageIcon("check.png");
-				JOptionPane.showMessageDialog(null, "Aennderung erfolgreich", "Meldung",
-						JOptionPane.INFORMATION_MESSAGE, icon);
+				JOptionPane.showMessageDialog(null, "Aenderung erfolgreich", "Meldung", JOptionPane.INFORMATION_MESSAGE,
+						icon);
 
 				// erneute Abfrage der Properties und ersezen des Wertes in dieser Klasse, um
 				// nach Speicherung nicht nochmal speichern zu können
