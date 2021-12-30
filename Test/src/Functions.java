@@ -16,6 +16,16 @@ public class Functions {
 	private String fileName;
 	
 	/**
+	 * Private String um den Pfad zu speichern
+	 */
+	private static String path;
+	
+	/**
+	 * Private String um den Archiv Pfad zu speichern
+	 */
+	private static String pathArchive;
+	
+	/**
 	 * Methode zum setzen der Automatik auf true oder false
 	 * @param active
 	 */
@@ -54,4 +64,41 @@ public class Functions {
 		return this.fileName;
 	}
 
+	/**
+	 * Methode zum setzen des FileNames
+	 * @param name
+	 */
+	public void setPath(String pathP) {
+		//Referenz auf private String im Kopf der Klasse
+		this.path = pathP;
+	
+	}
+	
+	/**
+	 * Methode zum erhalten/abfragen des FileNames, ob diese true oder false hinterlegt ist
+	 */
+	public String getPath() {
+		//Referenz auf private String im Kopf der Klasse
+		return this.path;
+	}
+	
+	/**
+	 * Methode zum setzen des FileNames
+	 * @param name
+	 */
+	public void setPathArchive(String pathPA) {
+		//Referenz auf private String im Kopf der Klasse
+		this.pathArchive = pathPA;
+	
+	}
+	
+	/**
+	 * Methode zum erhalten/abfragen des Archiv-Pfads
+	 */
+	public String getPathArchive() {
+		//Referenz auf private String im Kopf der Klasse
+		return this.pathArchive;
+	}
+	
+	
 }
