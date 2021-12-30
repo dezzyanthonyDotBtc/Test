@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Timer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
@@ -12,6 +13,8 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 	 
 	public class Menu extends JFrame {
+		//Timer Objekt 
+		Timer t = new Timer();
 		
 		//Objekt erzeugen, um auf die setAutomatik Funktion zugreifen zu k�nnen
         Functions f = new Functions();
@@ -104,13 +107,13 @@ import javax.swing.border.TitledBorder;
 	        JPanel automatik = new JPanel();
 	        
 	        //Erzeugen eines Labels
-		    JLabel label = new JLabel("Read-Path:");
+		    JLabel label = new JLabel("Pfad (READ):");
 		    
 		    //Erzeugen eines Labels
-		    JLabel labelArchive = new JLabel("Archive-Path:");
+		    JLabel labelArchive = new JLabel("Pfad (ARCHIV):");
 		    
 		    //Erzeugen eines TextFields - read-Path
-		    JTextField path = new JTextField("",15);
+		    JTextField path = new JTextField("",22);
 		    path.setText(path1);
 		    path.setForeground(Color.black.brighter());
 		    path.setBackground(Color.white);
@@ -120,7 +123,7 @@ import javax.swing.border.TitledBorder;
 			path.setEditable(false);
 			
 			 //Erzeugen eines TextFields
-		    JTextField pathArchive = new JTextField("",15);
+		    JTextField pathArchive = new JTextField("",21);
 		    pathArchive.setText(archivePath1);
 		    pathArchive.setForeground(Color.black.brighter());
 		    pathArchive.setBackground(Color.white);
@@ -310,8 +313,6 @@ import javax.swing.border.TitledBorder;
 		            		ImageIcon icon = new ImageIcon("error.png");
 			            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV", "Stop", JOptionPane.INFORMATION_MESSAGE, icon);
 		            	} else {	            		
-		            		pathArchive.setEnabled(true);
-		   	            	pathArchive.setEditable(true);
 	            	//Vergleich neuer INPUT mit altem INPUT
 	   	            if(path.getText().toString().equals(pathActual)) {
 	   	                //Ausgrgauung wird aktiviert
@@ -622,11 +623,15 @@ import javax.swing.border.TitledBorder;
 	   	     	    //Setzen der aktuallen Pfade, falls eine ungespeicherte �nderung in den Textfeldern hijnterlegt wurde
 	   	     	    path.setText(pathActual);
 	   	     	    pathArchive.setText(archivePathActual);
-	   	     	    //�bergabe der Werte an die Automatik des Programms
-	   	     	    
+	   	     	    //Setzen des Pfades in ein Objekt
+	   	     	    f.setPath(path.getText());
+	   	     	    f.setPathArchive(pathArchive.getText());
+	   	     
 	   	     	    //METHODE
-	   	     	    //
-	   	     	    //
+	   	     	    //Einsteigen in die Verarbeitung
+	   	     	    TimerDataCheck.timerTask(f,t, display);
+	   	     	    //Check, ob der Pfad wirklich vorhanden ist
+	   	     	    System.out.println(f.getPath().toString() +"  "+ f.getPathArchive());
 	   	     	
 	   	     	    ImageIcon icon = new ImageIcon("start.png");
 	   	     	    JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestartet", "Start", JOptionPane.INFORMATION_MESSAGE, icon);
@@ -651,6 +656,9 @@ import javax.swing.border.TitledBorder;
    	            	
    	            	if(f.getAutomatik()==true){
    	            		f.setAutomatik(false);
+   	            		//Verarbeitung anhalten
+   	            		t.cancel();
+   	            		//Anzeige, Verarbeitung beendet
    		            	display.append("Automatik gestoppt... \n");
    	   	            	ImageIcon icon = new ImageIcon("stop.png");
    		            	JOptionPane.showMessageDialog(null, "Automatische Verarbeitung gestoppt", "Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
