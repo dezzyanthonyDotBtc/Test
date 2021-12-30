@@ -62,7 +62,6 @@ public class FileImpExp {
 		}
 		br.close();
 		br = null;
-		//System.out.println(st);
 		// Diese statische Methode der Klasse CheckFiles prüft eingelesene EDI Dateien.
 		CheckFile.checkVWPALandCPS(sb.toString(), files, display);
 
@@ -74,16 +73,9 @@ public class FileImpExp {
 	 */
 	public static void safeNewFile(String newFile, File file, JTextArea display) throws Exception {
 			
-			
 			BufferedWriter writer = new BufferedWriter(new FileWriter(pathA+ file.getName()));
 			display.append(file.getName()+"....abgeschossen.....");
 			System.out.println(pathA + " Bin in der Speicherung ");
-		//	display.append("Automatik gestoppt... \n");
-			// Eintragung wo die Datei geschrieben wird - Test
-			//BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\admin-DL\\Desktop\\TestOut\\" + file.getName()));
-
-			// LIVE-Verzeichnis hier wird gearbeitet und an den Kunden gesendet..
-			//BufferedWriter writer = new BufferedWriter(new FileWriter("R:\\EDI\\ESCM\\OUT\\" + file.getName()));
 
 			// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
 			writer.write(newFile);
@@ -104,11 +96,6 @@ public class FileImpExp {
 		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(pathArch+ file.getName()));
 		System.out.println(pathArch + " Bin im ARCHIV ");
-		// Eintragung wo die Datei geschrieben wird - Test
-		//BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\admin-DL\\Desktop\\TestOut\\" + file.getName()));
-
-		// LIVE-Archiv-Verzeichnis hier wird gearbeitet und an den Kunden gesendet..
-		//BufferedWriter writer = new BufferedWriter(new FileWriter("R:\\EDI\\ESCM\\OUT\\VW_CONVERT\\VW_OUT\\VW_ARCHIV\\" + file.getName()));
 
 		// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
 		writer.write(newFile);
