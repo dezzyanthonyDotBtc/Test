@@ -189,7 +189,7 @@ import javax.swing.border.TitledBorder;
 		   // this.add(panelArchive);
 		    
 	        // Menüpunkte werden erzeugt
-	        openItem = new JMenuItem("Manuelle-Verarbeitung");
+	        openItem = new JMenuItem("Manuell verarbeiten");
 	        closeItem = new JMenuItem("Schliessen");
 	        support = new JMenuItem("Support");
 	        version = new JMenuItem("Version");
