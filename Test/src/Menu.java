@@ -97,7 +97,7 @@ public class Menu extends JFrame {
 	 * @param archivePath1 Archiv-Pfad
 	 */
 	public Menu(String path1, String archivePath1) {
-		//Setzen der DefaulClose Operation, wenn das Fenster durch das X beendet wird
+		// Setzen der DefaulClose Operation, wenn das Fenster durch das X beendet wird
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		// Titel der Applikation setzen
 		this.setTitle("VW Converter - 2.1.0");
@@ -342,7 +342,7 @@ public class Menu extends JFrame {
 				// Auslesen eines Pfades aus der Config Datei
 				BufferedInputStream stream;
 				try {
-					
+
 					stream = new BufferedInputStream(new FileInputStream("config.properties"));
 					prob.load(stream);
 					stream.close();
@@ -369,57 +369,59 @@ public class Menu extends JFrame {
 									JOptionPane.INFORMATION_MESSAGE, icon);
 
 						} else {
-							
-							//Icon f�r die Abfrage "?" erstellen
+
+							// Icon f�r die Abfrage "?" erstellen
 							ImageIcon icon2 = new ImageIcon("questionmark.png");
-							//Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
-							if (f.pathValidity(path.getText().toString())== true) {				
-							// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
-							JPanel panelButton = new JPanel();
-							JLabel lab = new JLabel ("        Wollen Sie den Pfad wirklich Aendern?                   ");
-							JLabel lab2 = new JLabel (icon2);
-							// Hinzufügen der Button zum Panel
-							panelButton.add(lab2);
-							panelButton.add(lab);
-							panelButton.add(yesButton);
-							panelButton.add(noButton);
-							// Sichtbarkeit des Panels setzen
-							panelButton.setVisible(true);
-							// Panel dem Dialog Fenster hinzufügen
-							dialog.add(panelButton);
-							// Setzen des Titels, muss hier geschehen, da nicht über den Konstruktor
-							// möglich
-							dialog.setTitle("Meldung");
-							// Setzen der DialogFenster größe
-							dialog.setSize(400, 150);
-							// Fenster öffnet sich in der Mitte des Monitors
-							dialog.setLocationRelativeTo(null);
-							// Setzen des Objektes/Fensters auf Modual (Modal = keine Schließung oder
-							// Änderunga anderer Fenster möglich
-							dialog.setModal(true);
-							// Deaktivierung der menschlichen Fensteranpassung
-							dialog.setResizable(false);
-							// Sichtbarkeit des Fensters setzen
-							dialog.setVisible(true);
-							// Nach der Speicherung, soll das Feld erneut auf NICHT bearbeitbar gesetzt
-							// werden
-							path.setEditable(false);
-							// Nach der Speicherung wird erneut das Fels ausgegraut
-							path.setEnabled(false);
-							
+							// Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
+							if (f.pathValidity(path.getText().toString()) == true) {
+								// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
+								JPanel panelButton = new JPanel();
+								JLabel lab = new JLabel(
+										"        Wollen Sie den Pfad wirklich Aendern?                   ");
+								JLabel lab2 = new JLabel(icon2);
+								// Hinzufügen der Button zum Panel
+								panelButton.add(lab2);
+								panelButton.add(lab);
+								panelButton.add(yesButton);
+								panelButton.add(noButton);
+								// Sichtbarkeit des Panels setzen
+								panelButton.setVisible(true);
+								// Panel dem Dialog Fenster hinzufügen
+								dialog.add(panelButton);
+								// Setzen des Titels, muss hier geschehen, da nicht über den Konstruktor
+								// möglich
+								dialog.setTitle("Meldung");
+								// Setzen der DialogFenster größe
+								dialog.setSize(400, 150);
+								// Fenster öffnet sich in der Mitte des Monitors
+								dialog.setLocationRelativeTo(null);
+								// Setzen des Objektes/Fensters auf Modual (Modal = keine Schließung oder
+								// Änderunga anderer Fenster möglich
+								dialog.setModal(true);
+								// Deaktivierung der menschlichen Fensteranpassung
+								dialog.setResizable(false);
+								// Sichtbarkeit des Fensters setzen
+								dialog.setVisible(true);
+								// Nach der Speicherung, soll das Feld erneut auf NICHT bearbeitbar gesetzt
+								// werden
+								path.setEditable(false);
+								// Nach der Speicherung wird erneut das Fels ausgegraut
+								path.setEnabled(false);
+
 							} else {
 								// Setzen der Editierbarkeit auf false
 								path.setEditable(false);
 								// Setzen der Aktivierung auf false
 								path.setEnabled(false);
-								//Aufruf des aktuellen hinterlgten "G�LTIGEN" Pfades, welche in den properties hintergt ist
+								// Aufruf des aktuellen hinterlgten "G�LTIGEN" Pfades, welche in den
+								// properties hintergt ist
 								path.setText(pathActual);
 								// Seten des Bildes f�r die Meldung
 								ImageIcon icon = new ImageIcon("error.png");
 								// DialogMessage wird erzeugt, um dem User zu sagen, hier falsches Directory
 								// hinterlegt
-								JOptionPane.showMessageDialog(null, "Kein gueltiger Read-Pfad hinterlegt!!!",
-										"Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+								JOptionPane.showMessageDialog(null, "Kein gueltiger Read-Pfad hinterlegt!!!", "Meldung",
+										JOptionPane.INFORMATION_MESSAGE, icon);
 							}
 						}
 
@@ -545,16 +547,17 @@ public class Menu extends JFrame {
 									JOptionPane.INFORMATION_MESSAGE, icon);
 
 						} else {
-							
-							//Icon f�r die Abfrage "?" erstellen
-							ImageIcon icon2 = new ImageIcon("questionmark.png");							
-							//Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
-							if (f.pathValidity(pathArchive.getText().toString())== true) {
+
+							// Icon f�r die Abfrage "?" erstellen
+							ImageIcon icon2 = new ImageIcon("questionmark.png");
+							// Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
+							if (f.pathValidity(pathArchive.getText().toString()) == true) {
 								// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
-								JPanel panelButtonAr = new JPanel();	
+								JPanel panelButtonAr = new JPanel();
 								// Hinzufügen der Button zum Panel
-								JLabel lab = new JLabel ("        Wollen Sie den Pfad wirklich Aendern?                   ");
-								JLabel lab2 = new JLabel (icon2);			
+								JLabel lab = new JLabel(
+										"        Wollen Sie den Pfad wirklich Aendern?                   ");
+								JLabel lab2 = new JLabel(icon2);
 								// Hinzufügen der Button & Label zum Panel
 								panelButtonAr.add(lab2);
 								panelButtonAr.add(lab);
@@ -588,7 +591,7 @@ public class Menu extends JFrame {
 								pathArchive.setEditable(false);
 								// Setzen der Aktivierung auf false
 								pathArchive.setEnabled(false);
-								//Aufruf des  aktuellen "G�LTIGEN" Pfades
+								// Aufruf des aktuellen "G�LTIGEN" Pfades
 								pathArchive.setText(pathActualArchiv);
 								// Seten des Bildes f�r die Meldung
 								ImageIcon icon = new ImageIcon("error.png");
@@ -755,19 +758,67 @@ public class Menu extends JFrame {
 				}
 			}
 		});
-		
-		
-		dialog.addWindowListener(new WindowAdapter() 
-		{
-		  public void windowClosed(WindowEvent e)
-		  {
-		    System.out.println("jdialog window closed event received");
-		  }
 
-		  public void windowClosing(WindowEvent e)
-		  {
-		    System.out.println("jdialog window closing event received");
-		  }
+		// Hinzufuegen des Closing Events fuer die Abfragen, wenn das Dialog Fenster
+		// einfach geschlossen wird
+		dialog.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				// Properties-Objekt erstellen
+				Properties probPath = new Properties();
+				// Auslesen eines Pfades aus der Config Datei
+				BufferedInputStream stream;
+				try {
+					stream = new BufferedInputStream(new FileInputStream("config.properties"));
+					probPath.load(stream);
+					stream.close();
+
+					// Speicherung der aktuellen Werte f�r die Pfade (Read & Archiv)
+					String pathActual = probPath.getProperty("path");
+					
+					// Setzen der aktuallen Pfade, falls das Dialogfenster einfach geschlossen
+					// werden sollte
+					path.setText(pathActual);
+					
+					//Feld�nderungen deaktivieren
+					pathArchive.setEditable(false);
+					pathArchive.setEnabled(false);
+					
+				} catch (IOException e1) {
+					display.append("\n" + e1 + "\n");
+					e1.printStackTrace();
+				}
+				
+			}
+		});
+		
+		// Hinzufuegen des Closing Events fuer die Abfragen, wenn das Dialog Fenster
+		// einfach geschlossen wird
+		dialogArchiv.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				// Properties-Objekt erstellen
+				Properties probPathArchive = new Properties();
+				// Auslesen eines Pfades aus der Config Datei
+				BufferedInputStream streamArchive;
+				try {
+					streamArchive = new BufferedInputStream(new FileInputStream("config.properties"));
+					probPathArchive.load(streamArchive);
+					streamArchive.close();
+
+					// Speicherung der aktuellen Werte f�r die Pfade (Read & Archiv)
+					String archivePathActual = probPathArchive.getProperty("archivePath");
+
+					// Setzen der aktuallen Pfade, falls das Dialogfenster einfach geschlossen
+					// werden sollte
+					pathArchive.setText(archivePathActual);
+					pathArchive.setEditable(false);
+					pathArchive.setEnabled(false);
+					
+				} catch (IOException e1) {
+					display.append("\n" + e1 + "\n");
+					e1.printStackTrace();
+				}
+				
+			}
 		});
 	}
 
