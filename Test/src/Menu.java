@@ -365,27 +365,28 @@ public class Menu extends JFrame {
 									JOptionPane.INFORMATION_MESSAGE, icon);
 
 						} else {
-							//Hier wird der test des Textfields abgefragt und in der var Pfad gespecihert
-							Path p = Paths.get(path.getText().toString());
-							//Abfrage, ob der hinterlegte Pfad existiert und das Ergebnis wird in "isDir" hinterlegt
-							boolean isDir = Files.isDirectory(p);
-							
-							//Hier erfolgt die Pr�fung der Var "isDir", um die Entscheidung des Weges zu definieren
-							if(isDir == true) {					
+							//Icon f�r die Abfrage "?" erstellen
+							ImageIcon icon2 = new ImageIcon("check.png");
+							//Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
+							if (f.pathValidity(path.getText().toString())== true) {				
 							// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
-							JPanel panel = new JPanel();
+							JPanel panelButton = new JPanel();
+							JLabel lab = new JLabel ("        Wollen Sie den Pfad wirklich Aendern?                   ");
+							JLabel lab2 = new JLabel (icon2);
 							// Hinzufügen der Button zum Panel
-							panel.add(yesButton);
-							panel.add(noButton);
+							panelButton.add(lab2);
+							panelButton.add(lab);
+							panelButton.add(yesButton);
+							panelButton.add(noButton);
 							// Sichtbarkeit des Panels setzen
-							panel.setVisible(true);
+							panelButton.setVisible(true);
 							// Panel dem Dialog Fenster hinzufügen
-							dialog.add(panel);
+							dialog.add(panelButton);
 							// Setzen des Titels, muss hier geschehen, da nicht über den Konstruktor
 							// möglich
-							dialog.setTitle("Wollen Sie den Pfad wirklich ändern?");
+							dialog.setTitle("Meldung");
 							// Setzen der DialogFenster größe
-							dialog.setSize(400, 100);
+							dialog.setSize(400, 150);
 							// Fenster öffnet sich in der Mitte des Monitors
 							dialog.setLocationRelativeTo(null);
 							// Setzen des Objektes/Fensters auf Modual (Modal = keine Schließung oder
@@ -539,25 +540,30 @@ public class Menu extends JFrame {
 									JOptionPane.INFORMATION_MESSAGE, icon);
 
 						} else {
-
-							Path p = Paths.get(pathArchive.getText().toString());
-							boolean isDir = Files.isDirectory(p);
-
-							if (isDir == true) {
+							
+							//Icon f�r die Abfrage "?" erstellen
+							ImageIcon icon2 = new ImageIcon("check.png");							
+							//Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
+							if (f.pathValidity(pathArchive.getText().toString())== true) {
 								// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
-								JPanel panel = new JPanel();
+								JPanel panelButtonAr = new JPanel();	
 								// Hinzufügen der Button zum Panel
-								panel.add(yesButtonArchive);
-								panel.add(noButtonArchive);
+								JLabel lab = new JLabel ("        Wollen Sie den Pfad wirklich Aendern?                   ");
+								JLabel lab2 = new JLabel (icon2);			
+								// Hinzufügen der Button & Label zum Panel
+								panelButtonAr.add(lab2);
+								panelButtonAr.add(lab);
+								panelButtonAr.add(yesButtonArchive);
+								panelButtonAr.add(noButtonArchive);
 								// Sichtbarkeit des Panels setzen
-								panel.setVisible(true);
+								panelButtonAr.setVisible(true);
 								// Panel dem Dialog Fenster hinzufügen
-								dialogArchiv.add(panel);
+								dialogArchiv.add(panelButtonAr);
 								// Setzen des Titels, muss hier geschehen, da nicht über den Konstruktor
 								// möglich
-								dialogArchiv.setTitle("Wollen Sie den Archiv-Pfad wirklich Aendern?");
+								dialogArchiv.setTitle("Meldung");
 								// Setzen der DialogFenster größe
-								dialogArchiv.setSize(400, 100);
+								dialogArchiv.setSize(400, 150);
 								// Fenster öffnet sich in der Mitte des Monitors
 								dialogArchiv.setLocationRelativeTo(null);
 								// Deaktivierung der menschlichen Fensteranpassung
