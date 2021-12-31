@@ -1,4 +1,6 @@
+import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
@@ -118,22 +120,17 @@ public class Functions {
 	}
 	
 	/**
-	 * Methode zum setzen eines Validen Pfades
-	 * 
-	 * @param name
+	 * Methode zur Prüfung, ob ein eingegebener Pfad valide ist oder nicht
+	 * @param path Pfad, welcher überprüft werden soll
+	 * @return boolean true/false
 	 */
-	public void setValidity(boolean valid) {
-		// Referenz auf private String im Kopf der Klasse
-		this.isValid = valid;
-
-	}
-
-	/**
-	 * Methode zum erhalten/abfragen der Validität eins Pfades
-	 */
-	public boolean getValidity() {
-		// Referenz auf private String im Kopf der Klasse
-		return this.isValid;
+	public boolean pathValidity(String path) {
+		//Übergabe des String "Pades", um diesen ummzuwandeln in ein Path Objekt
+		Path p = Paths.get(path);
+		//Das Esgebnis in die var "validity" abspeichern
+		boolean validity = Files.isDirectory(p);
+		//Rückgabewert, ob ein PFad valide ist oder nicht
+		return validity;
 	}
 	
 }
