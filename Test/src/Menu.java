@@ -242,28 +242,35 @@ public class Menu extends JFrame {
 		openItem.addActionListener(new java.awt.event.ActionListener() {
 			// Beim DrÃ¼cken des MenÃ¼punktes wird actionPerformed aufgerufen
 			public void actionPerformed(java.awt.event.ActionEvent e) {
-				// Dateiauswahldialog wird erzeugt...
-				JFileChooser fc = new JFileChooser();
-				// ... und angezeigt
-				fc.showOpenDialog(null);
-				// Speichert das ausgewï¿½hlte File in Variable File
-				File file = fc.getSelectedFile();
+				//Abfrage, ob die Automatik aktuell ATIV ist oder nicht
+				if (f.getAutomatik() == false) {
+					// Dateiauswahldialog wird erzeugt...
+					JFileChooser fc = new JFileChooser();
+					// ... und angezeigt
+					fc.showOpenDialog(null);
+					// Speichert das ausgewï¿½hlte File in Variable File
+					File file = fc.getSelectedFile();
 
-				// Manuelle Verarbeitung einzelner Dateien
-				if (file != null) {
+					// Manuelle Verarbeitung einzelner Dateien
+					if (file != null) {
 
-					try {
-						// setzen der Pfade in die functions Methoden
-						f.setPath(path.getText());
-						f.setPathArchive(pathArchive.getText());
+						try {
+							// setzen der Pfade in die functions Methoden
+							f.setPath(path.getText());
+							f.setPathArchive(pathArchive.getText());
 
-						FileImpExp.readFile(file, f, display);
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+							FileImpExp.readFile(file, f, display);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					} else {
+						display.append("\n" + "Auswahl abgebrochen..........\n");
 					}
 				} else {
-					display.append("\n" + "Auswahl abgebrochen..........\n");
+					ImageIcon icon = new ImageIcon("error.png");
+					JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV \n", "Meldung",
+							JOptionPane.INFORMATION_MESSAGE, icon);
 				}
 
 			}
@@ -774,23 +781,23 @@ public class Menu extends JFrame {
 
 					// Speicherung der aktuellen Werte fï¿½r die Pfade (Read & Archiv)
 					String pathActual = probPath.getProperty("path");
-					
+
 					// Setzen der aktuallen Pfade, falls das Dialogfenster einfach geschlossen
 					// werden sollte
 					path.setText(pathActual);
-					
-					//Feldänderungen deaktivieren
+
+					// Feldänderungen deaktivieren
 					pathArchive.setEditable(false);
 					pathArchive.setEnabled(false);
-					
+
 				} catch (IOException e1) {
 					display.append("\n" + e1 + "\n");
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
-		
+
 		// Hinzufuegen des Closing Events fuer die Abfragen, wenn das Dialog Fenster
 		// einfach geschlossen wird
 		dialogArchiv.addWindowListener(new WindowAdapter() {
@@ -812,12 +819,12 @@ public class Menu extends JFrame {
 					pathArchive.setText(archivePathActual);
 					pathArchive.setEditable(false);
 					pathArchive.setEnabled(false);
-					
+
 				} catch (IOException e1) {
 					display.append("\n" + e1 + "\n");
 					e1.printStackTrace();
 				}
-				
+
 			}
 		});
 	}
