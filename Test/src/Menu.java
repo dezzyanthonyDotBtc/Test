@@ -366,7 +366,7 @@ public class Menu extends JFrame {
 
 						} else {
 							//Icon für die Abfrage "?" erstellen
-							ImageIcon icon2 = new ImageIcon("check.png");
+							ImageIcon icon2 = new ImageIcon("questionmark.png");
 							//Weitere Abfrage, ob der hintelregte Pfad Gültigkeit hat
 							if (f.pathValidity(path.getText().toString())== true) {				
 							// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
@@ -542,7 +542,7 @@ public class Menu extends JFrame {
 						} else {
 							
 							//Icon für die Abfrage "?" erstellen
-							ImageIcon icon2 = new ImageIcon("check.png");							
+							ImageIcon icon2 = new ImageIcon("questionmark.png");							
 							//Weitere Abfrage, ob der hintelregte Pfad Gültigkeit hat
 							if (f.pathValidity(pathArchive.getText().toString())== true) {
 								// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
