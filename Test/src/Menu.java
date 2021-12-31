@@ -94,8 +94,8 @@ public class Menu extends JFrame {
 	 * @param archivePath1 Archiv-Pfad
 	 */
 	public Menu(String path1, String archivePath1) {
-
-		// java.net.URL url = ClassLoader.getSystemResource("logo.png");
+		//Setzen der DefaulClose Operation, wenn das Fenster durch das X beendet wird
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		// Titel der Applikation setzen
 		this.setTitle("VW Converter - 2.1.0");
 
@@ -183,7 +183,7 @@ public class Menu extends JFrame {
 		// ----------Buttons fÃ¼r die Automatik hinzufÃ¼gen
 		automatik.add(startAutomatik);
 		automatik.add(stopAutomatik);
-		// Logo hinzufügen
+		// Logo hinzufï¿½gen
 		automatik.add(labellogo);
 
 		// HinzufÃ¼gen einer Scrollabl Area fÃ¼r Infos zur Verarbeitung
@@ -243,7 +243,7 @@ public class Menu extends JFrame {
 				JFileChooser fc = new JFileChooser();
 				// ... und angezeigt
 				fc.showOpenDialog(null);
-				// Speichert das ausgewählte File in Variable File
+				// Speichert das ausgewï¿½hlte File in Variable File
 				File file = fc.getSelectedFile();
 
 				// Manuelle Verarbeitung einzelner Dateien
@@ -339,6 +339,7 @@ public class Menu extends JFrame {
 				// Auslesen eines Pfades aus der Config Datei
 				BufferedInputStream stream;
 				try {
+					
 					stream = new BufferedInputStream(new FileInputStream("config.properties"));
 					prob.load(stream);
 					stream.close();
@@ -365,9 +366,10 @@ public class Menu extends JFrame {
 									JOptionPane.INFORMATION_MESSAGE, icon);
 
 						} else {
-							//Icon für die Abfrage "?" erstellen
+							
+							//Icon fï¿½r die Abfrage "?" erstellen
 							ImageIcon icon2 = new ImageIcon("questionmark.png");
-							//Weitere Abfrage, ob der hintelregte Pfad Gültigkeit hat
+							//Weitere Abfrage, ob der hintelregte Pfad Gï¿½ltigkeit hat
 							if (f.pathValidity(path.getText().toString())== true) {				
 							// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
 							JPanel panelButton = new JPanel();
@@ -407,13 +409,13 @@ public class Menu extends JFrame {
 								path.setEditable(false);
 								// Setzen der Aktivierung auf false
 								path.setEnabled(false);
-								//Aufruf des aktuellen hinterlgten "GÜLTIGEN" Pfades, welche in den properties hintergt ist
+								//Aufruf des aktuellen hinterlgten "Gï¿½LTIGEN" Pfades, welche in den properties hintergt ist
 								path.setText(pathActual);
-								// Seten des Bildes für die Meldung
+								// Seten des Bildes fï¿½r die Meldung
 								ImageIcon icon = new ImageIcon("error.png");
 								// DialogMessage wird erzeugt, um dem User zu sagen, hier falsches Directory
 								// hinterlegt
-								JOptionPane.showMessageDialog(null, "Kein gültiger Read-Pfad hinterlegt!!!",
+								JOptionPane.showMessageDialog(null, "Kein gï¿½ltiger Read-Pfad hinterlegt!!!",
 										"Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 							}
 						}
@@ -541,9 +543,9 @@ public class Menu extends JFrame {
 
 						} else {
 							
-							//Icon für die Abfrage "?" erstellen
+							//Icon fï¿½r die Abfrage "?" erstellen
 							ImageIcon icon2 = new ImageIcon("questionmark.png");							
-							//Weitere Abfrage, ob der hintelregte Pfad Gültigkeit hat
+							//Weitere Abfrage, ob der hintelregte Pfad Gï¿½ltigkeit hat
 							if (f.pathValidity(pathArchive.getText().toString())== true) {
 								// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
 								JPanel panelButtonAr = new JPanel();	
@@ -583,13 +585,13 @@ public class Menu extends JFrame {
 								pathArchive.setEditable(false);
 								// Setzen der Aktivierung auf false
 								pathArchive.setEnabled(false);
-								//Aufruf des  aktuellen "GÜLTIGEN" Pfades
+								//Aufruf des  aktuellen "Gï¿½LTIGEN" Pfades
 								pathArchive.setText(pathActualArchiv);
-								// Seten des Bildes für die Meldung
+								// Seten des Bildes fï¿½r die Meldung
 								ImageIcon icon = new ImageIcon("error.png");
 								// DialogMessage wird erzeugt, um dem User zu sagen, hier falsches Directory
 								// hinterlegt
-								JOptionPane.showMessageDialog(null, "Kein gültiger Archiv-Pfad hinterlegt!!!",
+								JOptionPane.showMessageDialog(null, "Kein gï¿½ltiger Archiv-Pfad hinterlegt!!!",
 										"Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 							}
 						}
@@ -736,7 +738,7 @@ public class Menu extends JFrame {
 					f.setAutomatik(false);
 					// Verarbeitung anhalten
 					t.cancel();
-					// Überschreibung des alten Timers, da nach der Cancel Methode der alte Timer
+					// ï¿½berschreibung des alten Timers, da nach der Cancel Methode der alte Timer
 					// nicht mehr verwendet werdnen darf
 					t = new Timer();
 					// Anzeige, Verarbeitung beendet
