@@ -14,6 +14,9 @@ import java.util.Timer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
@@ -415,7 +418,7 @@ public class Menu extends JFrame {
 								ImageIcon icon = new ImageIcon("error.png");
 								// DialogMessage wird erzeugt, um dem User zu sagen, hier falsches Directory
 								// hinterlegt
-								JOptionPane.showMessageDialog(null, "Kein g�ltiger Read-Pfad hinterlegt!!!",
+								JOptionPane.showMessageDialog(null, "Kein gueltiger Read-Pfad hinterlegt!!!",
 										"Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 							}
 						}
@@ -591,7 +594,7 @@ public class Menu extends JFrame {
 								ImageIcon icon = new ImageIcon("error.png");
 								// DialogMessage wird erzeugt, um dem User zu sagen, hier falsches Directory
 								// hinterlegt
-								JOptionPane.showMessageDialog(null, "Kein g�ltiger Archiv-Pfad hinterlegt!!!",
+								JOptionPane.showMessageDialog(null, "Kein gueltiger Archiv-Pfad hinterlegt!!!",
 										"Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 							}
 						}
@@ -751,6 +754,20 @@ public class Menu extends JFrame {
 					display.append("\n" + dtf3.format(LocalDateTime.now()) + " - " + "Keine Automatik AKTIV..." + "\n");
 				}
 			}
+		});
+		
+		
+		dialog.addWindowListener(new WindowAdapter() 
+		{
+		  public void windowClosed(WindowEvent e)
+		  {
+		    System.out.println("jdialog window closed event received");
+		  }
+
+		  public void windowClosing(WindowEvent e)
+		  {
+		    System.out.println("jdialog window closing event received");
+		  }
 		});
 	}
 
