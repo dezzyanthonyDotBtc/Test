@@ -72,6 +72,12 @@ public class Menu extends JFrame {
 
 	// JButtonPfad speichern
 	JButton safePathArchive = new JButton("Speichern");
+	
+	// Button Pfad bearbeiten
+	JButton changePathOutput = new JButton("Bearbeiten");
+
+	// JButtonPfad speichern
+	JButton safePathOutput = new JButton("Speichern");
 
 	// Buttons für Ja & Nein Dialog Fenster
 	JButton yesButton = new JButton("Ja");
@@ -80,12 +86,19 @@ public class Menu extends JFrame {
 	// Buttons für Ja & Nein Dialog Fenster-Archiv
 	JButton yesButtonArchive = new JButton("Ja");
 	JButton noButtonArchive = new JButton("Nein");
+	
+	// Buttons für Ja & Nein Dialog Fenster-Archiv
+	JButton yesButtonOutput = new JButton("Ja");
+	JButton noButtonOutput = new JButton("Nein");
 
 	// Dialog Fenster zur Abfrage von Speicherung des Pfades
 	Dialog dialog = new JDialog();
 
 	// Dialog Fenster zur Abfrage von Speicherung des Pfades
 	Dialog dialogArchiv = new JDialog();
+	
+	// Dialog Fenster zur Abfrage von Speicherung des Pfades
+	Dialog dialogOutput = new JDialog();
 
 	// Haupt-Panel zu dem alle einzelnen Panels hinzugefügt werden
 	JPanel mainPanel = new JPanel();
@@ -96,14 +109,14 @@ public class Menu extends JFrame {
 	 * @param path1        Lese-Pfad
 	 * @param archivePath1 Archiv-Pfad
 	 */
-	public Menu(String path1, String archivePath1) {
+	public Menu(String path1, String archivePath1, String pathOutput1) {
 		// Setzen der DefaulClose Operation, wenn das Fenster durch das X beendet wird
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		// Titel der Applikation setzen
 		this.setTitle("VW Converter - 2.1.0");
 
 		// Größe des Frames hinterlegen
-		this.setSize(550, 460);
+		this.setSize(550, 500);
 
 		// Menschliche Vergrößerung des Fensters vermeiden
 		this.setResizable(false);
@@ -128,6 +141,9 @@ public class Menu extends JFrame {
 
 		// Erzeugen eines Panels für den Archiv-Pfad
 		JPanel panelArchive = new JPanel();
+		
+		// Erzeugen eines Panels für den Archiv-Pfad
+		JPanel panelOutput = new JPanel();
 
 		// Erzeugung des Button Panels der Automation des Programms
 		JPanel automatik = new JPanel();
@@ -142,6 +158,9 @@ public class Menu extends JFrame {
 		// Erzeugen eines Labels
 		JLabel labelArchive = new JLabel("ARCHIV:");
 
+		// Erzeugen eines Labels
+		JLabel labelOutput = new JLabel("OUTPUT:");
+		
 		// Erzeugen eines TextFields - read-Path
 		JTextField path = new JTextField("", 22);
 		path.setText(path1);
@@ -164,6 +183,18 @@ public class Menu extends JFrame {
 		// Das Feld wird auf nicht editierbar gesetzt, da dies vom Button freigegeben
 		// werden soll
 		pathArchive.setEditable(false);
+		
+		// Erzeugen eines TextFields
+		JTextField pathOutput = new JTextField("", 21);
+		pathOutput.setText(pathOutput1);
+		pathOutput.setForeground(Color.black.brighter());
+		pathOutput.setBackground(Color.white);
+
+		// Textfield ausgrauen
+		pathOutput.setEnabled(false);
+		// Das Feld wird auf nicht editierbar gesetzt, da dies vom Button freigegeben
+		// werden soll
+		pathOutput.setEditable(false);
 
 		// -----------Label, TextField & Buttons für den Pfad hinzufügen
 		// Label dem Panel hinzufügen
@@ -182,6 +213,15 @@ public class Menu extends JFrame {
 		// Buttons zur Bearbeitung/Speicherung des neuen Pfades
 		panelArchive.add(changePathArchive);
 		panelArchive.add(safePathArchive);
+		
+		// -----------Label, TextField & Buttons für den Output-Pfad hinzufügen
+		// Label dem Panel hinzufügen
+		panelOutput.add(labelOutput);
+		// TextField dem panel hinzufügen
+		panelOutput.add(pathOutput);
+		// Buttons zur Bearbeitung/Speicherung des neuen Pfades
+		panelOutput.add(changePathOutput);
+		panelOutput.add(safePathOutput);
 
 		// ----------Buttons für die Automatik hinzufügen
 		automatik.add(startAutomatik);
@@ -204,6 +244,7 @@ public class Menu extends JFrame {
 		// Alle dem PANEL hinzugefügten Felder/ Buttons etc. dem JFrame hinzufügen,
 		// daher this., da die Klasse selber ein JFrame ist
 		mainPanel.add(panel);
+		mainPanel.add(panelOutput);
 		mainPanel.add(panelArchive);
 		mainPanel.add(automatik);
 		mainPanel.add(infoPanel);
@@ -827,6 +868,214 @@ public class Menu extends JFrame {
 
 			}
 		});
+		
+		// Hinzufuegen des Closing Events fuer die Abfragen, wenn das Dialog Fenster
+		// einfach geschlossen wird
+		dialogOutput.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				// Properties-Objekt erstellen
+				Properties probPathOutput = new Properties();
+				// Auslesen eines Pfades aus der Config Datei
+				BufferedInputStream streamOutput;
+				try {
+					streamOutput = new BufferedInputStream(new FileInputStream("config.properties"));
+					probPathOutput.load(streamOutput);
+					streamOutput.close();
+
+					// Speicherung der aktuellen Werte f�r die Pfade (Read & Archiv)
+					String pathActualOutput = probPathOutput.getProperty("output");
+
+					// Setzen der aktuallen Pfade, falls das Dialogfenster einfach geschlossen
+					// werden sollte
+					pathOutput.setText(pathActualOutput);
+					pathOutput.setEditable(false);
+					pathOutput.setEnabled(false);
+
+				} catch (IOException e1) {
+					display.append("\n" + e1 + "\n");
+					e1.printStackTrace();
+				}
+
+			}
+		});
+		
+		//-------------------DIALOG-FENSTER-Implementierung-SPEICHERUNG-OUTPUT-PFAD-----------------------------------
+
+				// ActionListener wird als anonyme Klasse eingebunden
+				changePathOutput.addActionListener(new java.awt.event.ActionListener() {
+					// Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
+					public void actionPerformed(java.awt.event.ActionEvent e) {
+						// Das Textfeld wird bearbeitbar und die Ausgrauung wird entfernt
+						boolean activ = f.getAutomatik();
+						System.out.println(activ);
+						if (activ == false) {
+							pathOutput.setEnabled(true);
+							pathOutput.setEditable(true);
+						} else {
+							// Bild für die Erroranzeige wird erzeigt
+							ImageIcon icon = new ImageIcon("error.png");
+							// Display die Warnung
+							JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV \n", "Meldung",
+									JOptionPane.INFORMATION_MESSAGE, icon);
+						}
+					}
+				});
+
+				// ActionListener wird als anonyme Klasse eingebunden
+				safePathOutput.addActionListener(new java.awt.event.ActionListener() {
+					// Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
+					public void actionPerformed(java.awt.event.ActionEvent e) {
+
+						// Properties-Objekt erstellen
+						Properties prob = new Properties();
+						// Auslesen eines Pfades aus der Config Datei
+						BufferedInputStream stream;
+						try {
+							stream = new BufferedInputStream(new FileInputStream("config.properties"));
+							prob.load(stream);
+							stream.close();
+							String pathActualOutput = prob.getProperty("output");
+
+							// Auslesen der Aktivierung der Automatik
+							boolean activ = f.getAutomatik();
+
+							// Prüfen, ob die Automatik noch aktiv ist
+							if (activ == true) {
+								pathOutput.setText(pathActualOutput);
+								ImageIcon icon = new ImageIcon("error.png");
+								JOptionPane.showMessageDialog(null, "Automatische Verarbeitung AKTIV \n", "Meldung",
+										JOptionPane.INFORMATION_MESSAGE, icon);
+							} else {
+
+								// Vergleich neuer INPUT mit altem INPUT
+								if (pathOutput.getText().toString().equals(pathActualOutput)) {
+									// Ausgrgauung wird aktiviert
+									pathOutput.setEnabled(false);
+									// Bild für die Erroranzeige wird erzeigt
+									ImageIcon icon = new ImageIcon("error.png");
+									// Display die Warnung
+									JOptionPane.showMessageDialog(null, "Uppps - Keine Aenderung erkannt", "Meldung",
+											JOptionPane.INFORMATION_MESSAGE, icon);
+
+								} else {
+
+									// Icon f�r die Abfrage "?" erstellen
+									ImageIcon icon2 = new ImageIcon("questionmark.png");
+									// Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
+									if (f.pathValidity(pathOutput.getText().toString()) == true) {
+										// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
+										JPanel panelButtonOut = new JPanel();
+										// Hinzufügen der Button zum Panel
+										JLabel lab = new JLabel(
+												"        Wollen Sie den Pfad wirklich Aendern?                   ");
+										JLabel lab2 = new JLabel(icon2);
+										// Hinzufügen der Button & Label zum Panel
+										panelButtonOut.add(lab2);
+										panelButtonOut.add(lab);
+										panelButtonOut.add(yesButtonOutput);
+										panelButtonOut.add(noButtonOutput);
+										// Sichtbarkeit des Panels setzen
+										panelButtonOut.setVisible(true);
+										// Panel dem Dialog Fenster hinzufügen
+										dialogOutput.add(panelButtonOut);
+										// Setzen des Titels, muss hier geschehen, da nicht über den Konstruktor
+										// möglich
+										dialogOutput.setTitle("Meldung");
+										// Setzen der DialogFenster größe
+										dialogOutput.setSize(400, 150);
+										// Fenster öffnet sich in der Mitte des Monitors
+										dialogOutput.setLocationRelativeTo(null);
+										// Deaktivierung der menschlichen Fensteranpassung
+										dialogOutput.setResizable(false);
+										// Setzen des Objektes/Fensters auf Modual (Modal = keine Schließung oder
+										// Änderunga anderer Fenster möglich
+										dialogOutput.setModal(true);
+										// Sichtbarkeit des Fensters setzen
+										dialogOutput.setVisible(true);
+										// Nach der Speicherung, soll das Feld erneut auf NICHT bearbeitbar gesetzt
+										// werden
+										pathOutput.setEditable(false);
+										// Nach der Speicherung wird auch das Feld erneut ausgegaurt
+										pathOutput.setEnabled(false);
+									} else {
+										// Setzen der Editierbarkeit auf false
+										pathOutput.setEditable(false);
+										// Setzen der Aktivierung auf false
+										pathOutput.setEnabled(false);
+										// Aufruf des aktuellen "G�LTIGEN" Pfades
+										pathOutput.setText(pathActualOutput);
+										// Seten des Bildes f�r die Meldung
+										ImageIcon icon = new ImageIcon("error.png");
+										// DialogMessage wird erzeugt, um dem User zu sagen, hier falsches Directory
+										// hinterlegt
+										JOptionPane.showMessageDialog(null, "Kein gueltiger Archiv-Pfad hinterlegt!!!",
+												"Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+									}
+								}
+							}
+						} catch (IOException e1) {
+							display.append("\n" + e1 + "\n");
+							e1.printStackTrace();
+						}
+
+					}
+
+				});
+
+				// ActionListener wird als anonyme Klasse eingebunden
+				yesButtonOutput.addActionListener(new java.awt.event.ActionListener() {
+					// Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
+					public void actionPerformed(java.awt.event.ActionEvent e) {
+
+						// Das Textfeld wird bearbeitbar
+						try {
+							FileInputStream in = new FileInputStream("config.properties");
+							Properties props = new Properties();
+							props.load(in);
+							in.close();
+
+							FileOutputStream out = new FileOutputStream("config.properties");
+							props.setProperty("output", pathOutput.getText().toString());
+							props.store(out, null);
+							out.close();
+
+						} catch (FileNotFoundException e1) {
+							display.append("\n" + e1 + "\n");
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							display.append("\n" + e1 + "\n");
+							e1.printStackTrace();
+						}
+
+						// Das Textfeld wird bearbeitbar
+						pathOutput.setEditable(false);
+						pathOutput.setEnabled(false);
+						dialogOutput.setVisible(false);
+						dialogOutput.dispose();
+
+						ImageIcon icon = new ImageIcon("check.png");
+						JOptionPane.showMessageDialog(null, "Aenderung erfolgreich", "Meldung", JOptionPane.INFORMATION_MESSAGE,
+								icon);
+
+						// erneute Abfrage der Properties und ersezen des Wertes in dieser Klasse, um
+						// nach Speicherung nicht nochmal speichern zu können
+					}
+				});
+
+				// ActionListener wird als anonyme Klasse eingebunden
+				noButtonOutput.addActionListener(new java.awt.event.ActionListener() {
+					// Beim Drücken des Menüpunktes wird actionPerformed aufgerufen
+					public void actionPerformed(java.awt.event.ActionEvent e) {
+
+						// Das Textfeld wird bearbeitbar
+						pathOutput.setText(pathOutput1);
+						pathOutput.setEditable(false);
+						pathOutput.setEnabled(false);
+						dialogOutput.setVisible(false);
+						dialogOutput.dispose();
+
+					}
+				});
 	}
 
 }

@@ -22,9 +22,15 @@ public class Main {
 		prob.load(streamArchive);
 		stream.close();
 		String archivePath = prob.getProperty("archivePath");
+		
+		// Auslesen eines Pfades aus der Config Datei
+		BufferedInputStream streamOutput = new BufferedInputStream(new FileInputStream("config.properties"));
+		prob.load(streamOutput);
+		stream.close();
+		String pathOutput = prob.getProperty("output");
 
 		// AUfruf des Konstruktors und Übergabe der aktuellen Pfade
-		Menu nml = new Menu(path, archivePath);
+		Menu nml = new Menu(path, archivePath, pathOutput);
 		nml.setVisible(true);
 
 	}
