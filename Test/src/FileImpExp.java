@@ -4,6 +4,9 @@ import static java.nio.file.StandardCopyOption.*;
 import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
@@ -18,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
@@ -36,6 +40,7 @@ public class FileImpExp {
 	
 	static String pathA;
 	static String pathArch;
+	static String pathOutput;
 
 	/**
 	 * Diese Methode liest die zu konvertierenden Lieferabrufe ein und speichert
@@ -79,8 +84,7 @@ public class FileImpExp {
 	 * Diese Methode speichert eine veränderte EDI Datei im hinterlegten Verzeichnis
 	 * der EDI Schnittstelle mit neuer Debitornummer.
 	 */
-	public static void safeNewFile(String newFile, File file, JTextArea display) throws Exception {
-
+	public static void safeNewFile(String newFile, File file, JTextArea display) throws Exception {		
 		DateTimeFormatter dtf3 = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
 		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(pathA + file.getName()));
@@ -89,6 +93,19 @@ public class FileImpExp {
 		writer.write(newFile);
 		writer.close();
 		writer = null;
+		
+		
+		
+		//OUTPUT implementieren
+		
+		
+		
+		BufferedWriter writerOutput = new BufferedWriter(new FileWriter(pathOutput + file.getName()));
+		//display.append("\n" + dtf3.format(LocalDateTime.now()) +" - "+ file.getName() + "...abgeschossen..... \n");
+		// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
+		writerOutput.write(newFile);
+		writerOutput.close();
+		writerOutput = null;
 
 		// Bearbeitetes File wird nun entfernt.
 		safeNewFileIntoArchiv(newFile, file);

@@ -32,6 +32,11 @@ public class Functions {
 	private static String pathArchive;
 	
 	/**
+	 * Private String um den Archiv Pfad zu speichern
+	 */
+	private static String pathOutput;
+	
+	/**
 	 * Private boolean um validität eines Links zu hinterlegen
 	 */
 	boolean isValid = false;
@@ -110,13 +115,32 @@ public class Functions {
 		this.pathArchive = pathPA;
 
 	}
-
+	
 	/**
 	 * Methode zum erhalten/abfragen des Archiv-Pfads
 	 */
 	public String getPathArchive() {
 		// Referenz auf private String im Kopf der Klasse
 		return this.pathArchive;
+	}
+
+	/**
+	 * Methode zum erhalten/abfragen des Archiv-Pfads
+	 */
+	public String getPathOutput() {
+		// Referenz auf private String im Kopf der Klasse
+		return this.pathOutput;
+	}
+	
+	/**
+	 * Methode zum setzen des FileNames
+	 * 
+	 * @param name
+	 */
+	public void setPathOutput(String pathOut) {
+		// Referenz auf private String im Kopf der Klasse
+		this.pathOutput = pathOut;
+
 	}
 	
 	/**

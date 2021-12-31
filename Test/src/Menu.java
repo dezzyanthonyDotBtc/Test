@@ -1008,7 +1008,7 @@ public class Menu extends JFrame {
 										ImageIcon icon = new ImageIcon("error.png");
 										// DialogMessage wird erzeugt, um dem User zu sagen, hier falsches Directory
 										// hinterlegt
-										JOptionPane.showMessageDialog(null, "Kein gueltiger Archiv-Pfad hinterlegt!!!",
+										JOptionPane.showMessageDialog(null, "Kein gueltiger Output-Pfad hinterlegt!!!",
 												"Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
 									}
 								}
