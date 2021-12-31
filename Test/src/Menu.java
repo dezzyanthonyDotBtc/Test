@@ -365,6 +365,13 @@ public class Menu extends JFrame {
 									JOptionPane.INFORMATION_MESSAGE, icon);
 
 						} else {
+							//Hier wird der test des Textfields abgefragt und in der var Pfad gespecihert
+							Path p = Paths.get(path.getText().toString());
+							//Abfrage, ob der hinterlegte Pfad existiert und das Ergebnis wird in "isDir" hinterlegt
+							boolean isDir = Files.isDirectory(p);
+							
+							//Hier erfolgt die Prüfung der Var "isDir", um die Entscheidung des Weges zu definieren
+							if(isDir == true) {					
 							// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
 							JPanel panel = new JPanel();
 							// HinzufÃ¼gen der Button zum Panel
@@ -393,12 +400,26 @@ public class Menu extends JFrame {
 							path.setEditable(false);
 							// Nach der Speicherung wird erneut das Fels ausgegraut
 							path.setEnabled(false);
-
+							
+							} else {
+								// Setzen der Editierbarkeit auf false
+								path.setEditable(false);
+								// Setzen der Aktivierung auf false
+								path.setEnabled(false);
+								//Aufruf des aktuellen hinterlgten "GÜLTIGEN" Pfades, welche in den properties hintergt ist
+								path.setText(pathActual);
+								// Seten des Bildes für die Meldung
+								ImageIcon icon = new ImageIcon("error.png");
+								// DialogMessage wird erzeugt, um dem User zu sagen, hier falsches Directory
+								// hinterlegt
+								JOptionPane.showMessageDialog(null, "Kein gültiger Read-Pfad hinterlegt!!!",
+										"Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+							}
 						}
 
 					}
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					display.append("\n" + e1 + "\n");
 					e1.printStackTrace();
 				}
 
@@ -423,10 +444,10 @@ public class Menu extends JFrame {
 					out.close();
 
 				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
+					display.append("\n" + e1 + "\n");
 					e1.printStackTrace();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
+					display.append("\n" + e1 + "\n");
 					e1.printStackTrace();
 				}
 
@@ -485,6 +506,7 @@ public class Menu extends JFrame {
 		safePathArchive.addActionListener(new java.awt.event.ActionListener() {
 			// Beim DrÃ¼cken des MenÃ¼punktes wird actionPerformed aufgerufen
 			public void actionPerformed(java.awt.event.ActionEvent e) {
+
 				// Properties-Objekt erstellen
 				Properties prob = new Properties();
 				// Auslesen eines Pfades aus der Config Datei
@@ -518,6 +540,10 @@ public class Menu extends JFrame {
 
 						} else {
 
+							Path p = Paths.get(pathArchive.getText().toString());
+							boolean isDir = Files.isDirectory(p);
+
+							if (isDir == true) {
 								// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
 								JPanel panel = new JPanel();
 								// HinzufÃ¼gen der Button zum Panel
@@ -529,7 +555,7 @@ public class Menu extends JFrame {
 								dialogArchiv.add(panel);
 								// Setzen des Titels, muss hier geschehen, da nicht Ã¼ber den Konstruktor
 								// mÃ¶glich
-								dialogArchiv.setTitle("Wollen Sie den Archiv-Pfad wirklich Ã¤ndern?");
+								dialogArchiv.setTitle("Wollen Sie den Archiv-Pfad wirklich Aendern?");
 								// Setzen der DialogFenster grÃ¶ÃŸe
 								dialogArchiv.setSize(400, 100);
 								// Fenster Ã¶ffnet sich in der Mitte des Monitors
@@ -546,7 +572,20 @@ public class Menu extends JFrame {
 								pathArchive.setEditable(false);
 								// Nach der Speicherung wird auch das Feld erneut ausgegaurt
 								pathArchive.setEnabled(false);
-
+							} else {
+								// Setzen der Editierbarkeit auf false
+								pathArchive.setEditable(false);
+								// Setzen der Aktivierung auf false
+								pathArchive.setEnabled(false);
+								//Aufruf des  aktuellen "GÜLTIGEN" Pfades
+								pathArchive.setText(pathActualArchiv);
+								// Seten des Bildes für die Meldung
+								ImageIcon icon = new ImageIcon("error.png");
+								// DialogMessage wird erzeugt, um dem User zu sagen, hier falsches Directory
+								// hinterlegt
+								JOptionPane.showMessageDialog(null, "Kein gültiger Archiv-Pfad hinterlegt!!!",
+										"Meldung", JOptionPane.INFORMATION_MESSAGE, icon);
+							}
 						}
 					}
 				} catch (IOException e1) {
@@ -670,7 +709,7 @@ public class Menu extends JFrame {
 								JOptionPane.INFORMATION_MESSAGE, icon);
 
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
+						display.append("\n" + e1 + "\n");
 						e1.printStackTrace();
 					}
 
