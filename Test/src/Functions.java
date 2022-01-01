@@ -2,6 +2,10 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.JTextArea;
 
 /**
  * Diese Klasse erweitert das Programm um ein paar Funktionen
@@ -148,13 +152,24 @@ public class Functions {
 	 * @param path Pfad, welcher überprüft werden soll
 	 * @return boolean true/false
 	 */
-	public boolean pathValidity(String path) {
+	public boolean pathValidity(String path, JTextArea display) {
+		DateTimeFormatter dtf3 = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
+		
+		boolean validity = false;
+		
 		//Übergabe des String "Pades", um diesen ummzuwandeln in ein Path Objekt
 		Path p = Paths.get(path);
-		//Das Esgebnis in die var "validity" abspeichern
-		boolean validity = Files.isDirectory(p);
-		//Rückgabewert, ob ein PFad valide ist oder nicht
+		
+		if(path.endsWith("\\")) {
+			//Das Esgebnis in die var "validity" abspeichern
+			validity = Files.isDirectory(p);
+		}else {
+			display.append("\n" + dtf3.format(LocalDateTime.now()) + " - " + "Kein gueltiger Pfad!"+"\n"+ "Bitte auf '\\' am Ende des Pfads achten!!! \n");
+			validity = false;
+		}
 		return validity;
+		
+		//Rückgabewert, ob ein PFad valide ist oder nicht;
 	}
 	
 }

@@ -422,7 +422,7 @@ public class Menu extends JFrame {
 							// Icon f�r die Abfrage "?" erstellen
 							ImageIcon icon2 = new ImageIcon("questionmark.png");
 							// Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
-							if (f.pathValidity(path.getText().toString()) == true) {
+							if (f.pathValidity(path.getText().toString(), display) == true) {
 								// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
 								JPanel panelButton = new JPanel();
 								JLabel lab = new JLabel(
@@ -600,7 +600,7 @@ public class Menu extends JFrame {
 							// Icon f�r die Abfrage "?" erstellen
 							ImageIcon icon2 = new ImageIcon("questionmark.png");
 							// Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
-							if (f.pathValidity(pathArchive.getText().toString()) == true) {
+							if (f.pathValidity(pathArchive.getText().toString(), display) == true) {
 								// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
 								JPanel panelButtonAr = new JPanel();
 								// Hinzufügen der Button zum Panel
@@ -976,7 +976,7 @@ public class Menu extends JFrame {
 									// Icon f�r die Abfrage "?" erstellen
 									ImageIcon icon2 = new ImageIcon("questionmark.png");
 									// Weitere Abfrage, ob der hintelregte Pfad G�ltigkeit hat
-									if (f.pathValidity(pathOutput.getText().toString()) == true) {
+									if (f.pathValidity(pathOutput.getText().toString(), display) == true) {
 										// Erstellen des DialogFensters, Panel und der Ja und Nein Buttons
 										JPanel panelButtonOut = new JPanel();
 										// Hinzufügen der Button zum Panel
