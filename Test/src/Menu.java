@@ -730,37 +730,50 @@ public class Menu extends JFrame {
 					path.setEditable(false);
 					pathArchive.setEnabled(false);
 					pathArchive.setEditable(false);
+					pathOutput.setEnabled(false);
+					
+					pathOutput.setEditable(false);
 					display.append("\n" + dtf3.format(LocalDateTime.now()) + " - " + "Automatik gestartet.... \n");
 					// Setzen der Automatik von false auf true
 					f.setAutomatik(true);
 					// Properties-Objekt erstellen
 					Properties probPath = new Properties();
 					Properties probPathArchive = new Properties();
+					Properties probPathOutput = new Properties();
 					// Auslesen eines Pfades aus der Config Datei
 					BufferedInputStream stream;
 					// Auslesen eines Pfades aus der Config Datei
 					BufferedInputStream streamArchive;
+					// Auslesen eines Pfades aus der Config Datei
+					BufferedInputStream streamOutput;
 					try {
 						stream = new BufferedInputStream(new FileInputStream("config.properties"));
 						streamArchive = new BufferedInputStream(new FileInputStream("config.properties"));
+						streamOutput = new BufferedInputStream(new FileInputStream("config.properties"));
+
 
 						probPath.load(stream);
 						probPathArchive.load(streamArchive);
+						probPathArchive.load(streamOutput);
 
 						stream.close();
 						streamArchive.close();
+						streamOutput.close();
 
 						// Speicherung der aktuellen Werte fï¿½r die Pfade (Read & Archiv)
 						String pathActual = probPath.getProperty("path");
 						String archivePathActual = probPathArchive.getProperty("archivePath");
-
+						String pathActualOutput = probPathArchive.getProperty("archivePath");
+						
 						// Setzen der aktuallen Pfade, falls eine ungespeicherte ï¿½nderung in den
 						// Textfeldern hijnterlegt wurde
 						path.setText(pathActual);
 						pathArchive.setText(archivePathActual);
+						pathOutput.setText(pathActualOutput);
 						// Setzen des Pfades in ein Objekt
 						f.setPath(path.getText());
 						f.setPathArchive(pathArchive.getText());
+						f.setPathOutput(pathOutput.getText());
 
 						// METHODE
 						// Einsteigen in die Verarbeitung
@@ -827,7 +840,7 @@ public class Menu extends JFrame {
 					// werden sollte
 					path.setText(pathActual);
 
-					// Feldänderungen deaktivieren
+					// Feldï¿½nderungen deaktivieren
 					pathArchive.setEditable(false);
 					pathArchive.setEnabled(false);
 
@@ -1038,6 +1051,7 @@ public class Menu extends JFrame {
 							props.setProperty("output", pathOutput.getText().toString());
 							props.store(out, null);
 							out.close();
+							System.out.println();
 
 						} catch (FileNotFoundException e1) {
 							display.append("\n" + e1 + "\n");
