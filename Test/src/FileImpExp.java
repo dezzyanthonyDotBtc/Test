@@ -54,6 +54,7 @@ public class FileImpExp {
 
 		pathA = func.getPath();
 		pathArch = func.getPathArchive();
+		pathOutput = func.getPathOutput();
 
 		// Info an die Info Area andrucken
 		display.append("\n"+ dtf3.format(LocalDateTime.now()) +" - "+ files.getName() + "...Verarbeitung...... \n");
@@ -88,6 +89,8 @@ public class FileImpExp {
 		DateTimeFormatter dtf3 = DateTimeFormatter.ofPattern("yy/MM/dd HH:mm:ss");
 		
 		BufferedWriter writer = new BufferedWriter(new FileWriter(pathA + file.getName()));
+		BufferedWriter writerOutput = new BufferedWriter(new FileWriter(pathOutput + file.getName()));
+		
 		display.append("\n" + dtf3.format(LocalDateTime.now()) +" - "+ file.getName() + "...abgeschossen..... \n");
 		// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
 		writer.write(newFile);
@@ -95,17 +98,13 @@ public class FileImpExp {
 		writer = null;
 		
 		
-		
-		//OUTPUT implementieren
-		
-		
-		
-		BufferedWriter writerOutput = new BufferedWriter(new FileWriter(pathOutput + file.getName()));
-		//display.append("\n" + dtf3.format(LocalDateTime.now()) +" - "+ file.getName() + "...abgeschossen..... \n");
+	//	display.append("\n" + dtf3.format(LocalDateTime.now()) +" - "+ file.getName() + "...abgeschossen..... \n");
 		// Writer schließen und alles auf null setzen, dient zur Löschung der Files.
 		writerOutput.write(newFile);
 		writerOutput.close();
 		writerOutput = null;
+		
+		//OUTPUT implementieren
 
 		// Bearbeitetes File wird nun entfernt.
 		safeNewFileIntoArchiv(newFile, file);

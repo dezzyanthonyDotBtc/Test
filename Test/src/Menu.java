@@ -754,7 +754,7 @@ public class Menu extends JFrame {
 
 						probPath.load(stream);
 						probPathArchive.load(streamArchive);
-						probPathArchive.load(streamOutput);
+						probPathOutput.load(streamOutput);
 
 						stream.close();
 						streamArchive.close();
@@ -763,7 +763,7 @@ public class Menu extends JFrame {
 						// Speicherung der aktuellen Werte f�r die Pfade (Read & Archiv)
 						String pathActual = probPath.getProperty("path");
 						String archivePathActual = probPathArchive.getProperty("archivePath");
-						String pathActualOutput = probPathArchive.getProperty("archivePath");
+						String pathActualOutput = probPathArchive.getProperty("output");
 						
 						// Setzen der aktuallen Pfade, falls eine ungespeicherte �nderung in den
 						// Textfeldern hijnterlegt wurde
