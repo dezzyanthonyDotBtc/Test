@@ -299,6 +299,7 @@ public class Menu extends JFrame {
 							// setzen der Pfade in die functions Methoden
 							f.setPath(path.getText());
 							f.setPathArchive(pathArchive.getText());
+							f.setPathOutput(pathOutput.getText());
 
 							FileImpExp.readFile(file, f, display);
 						} catch (Exception e1) {
